@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tesla-energy/refs/heads/main/json-schema/tesla-energy-site-schema.json",
+  "title": "Tesla Energy Site",
+  "description": "Static configuration of a Tesla energy site returned by GET /energy_sites/{site_id}/site_info. An energy site is a customer-installed system that may include Powerwall (residential battery), Megapack (utility battery), Tesla Solar Inverter, retrofit solar panels, or Solar Roof.",
+  "type": "object",
+  "required": ["id", "site_name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Energy site identifier (UUID-style string)."
+    },
+    "site_name": {
+      "type": "string",
+      "description": "Human-readable name the owner gave the site."
+    },
+    "backup_reserve_percent": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Reserve percent held back for grid outages."
+    },
+    "default_real_mode": {
+      "type": "string",
+      "enum": ["self_consumption", "backup", "autonomous"],
+      "description": "Current operation mode of the site."
+    },
+    "installation_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "installation_time_zone": {
+      "type": "string",
+      "description": "IANA time zone identifier."
+    },
+    "version": {
+      "type": "string",
+      "description": "Gateway firmware version."
+    },
+    "battery_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of Powerwall (or Megapack) units installed."
+    },
+    "nameplate_power": {
+      "type": "number",
+      "description": "Nameplate continuous power rating in watts."
+    },
+    "nameplate_energy": {
+      "type": "number",
+      "description": "Nameplate energy capacity in watt-hours."
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "battery": {"type": "boolean"},
+        "solar": {"type": "boolean"},
+        "solar_type": {"type": "string"},
+        "grid": {"type": "boolean"},
+        "grid_services": {"type": "boolean"},
+        "storm_mode_capable": {"type": "boolean"},
+        "backup_time_remaining_enabled": {"type": "boolean"},
+        "off_grid_vehicle_charging_reserve_supported": {"type": "boolean"}
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "address": {"type": "string"},
+        "city": {"type": "string"},
+        "state": {"type": "string"},
+        "zip": {"type": "string"},
+        "country": {"type": "string"}
+      }
+    },
+    "user_settings": {
+      "type": "object",
+      "properties": {
+        "storm_mode_enabled": {"type": "boolean"},
+        "powerwall_onboarding_settings_set": {"type": "boolean"},
+        "sync_grid_alert_enabled": {"type": "boolean"},
+        "breaker_alert_enabled": {"type": "boolean"}
+      }
+    }
+  }
+}

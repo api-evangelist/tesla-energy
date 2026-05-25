@@ -1,0 +1,92 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Tesla Energy
+providerId: tesla-energy
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - FinOps
+  - FOCUS
+  - Energy
+  - Fleet API
+description: FOCUS-aligned FinOps definition for Tesla Energy. Covers two cost surfaces — (1) the Tesla
+  Fleet API energy_sites usage charges for partner integrations (per-request metering), and (2) the
+  one-time hardware capex for Powerwall, Megapack, Solar Roof, and retrofit Solar Panels with optional
+  monitoring/service agreements. Solar PPA and Tesla Electric retail electricity charges are listed but
+  not in scope for the Fleet API integration cost view.
+sources:
+  - https://developer.tesla.com/docs/fleet-api/billing-and-limits
+  - https://www.tesla.com/powerwall
+  - https://www.tesla.com/megapack
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Tesla, Inc.
+serviceCategory: Energy / Storage / API
+billingModel:
+  pricingCategory:
+    - Usage-Based
+    - Capital
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Tax
+    - Credit
+    - Adjustment
+  primaryUnit: request
+  secondaryUnits:
+    - kWh
+    - unit
+    - site
+focusColumns:
+  ServiceName: Tesla Fleet API (Energy)
+  ServiceCategory: Energy and Storage
+  ProviderName: Tesla
+  PublisherName: Tesla, Inc.
+  InvoiceIssuerName: Tesla, Inc.
+  PricingCategory: Usage-Based
+  PricingUnit: request
+  UsageUnit: request
+  ChargeCategory: Usage
+  ChargeClass: Standard
+costSurfaces:
+  - name: Fleet API Energy Data Requests
+    description: Metered GETs against /energy_sites/{site_id}/... with the energy_device_data scope.
+    unit: request
+    metric: requests
+    scope: energy_device_data
+  - name: Fleet API Energy Command Requests
+    description: Metered POSTs against /energy_sites/{site_id}/{backup,operation,storm_mode,time_of_use_settings,off_grid_vehicle_charging_reserve} with the energy_cmds scope.
+    unit: request
+    metric: requests
+    scope: energy_cmds
+  - name: Powerwall Hardware
+    description: One-time capex per Powerwall unit; installation labor, permitting, and the Gateway are quoted per project.
+    unit: unit
+    metric: hardware
+  - name: Megapack Hardware
+    description: One-time capex per Megapack unit; multi-year service agreements (warranty extension, monitoring) are quoted separately.
+    unit: unit
+    metric: hardware
+  - name: Solar Roof / Solar Panels Hardware
+    description: One-time capex; net of federal Investment Tax Credit and state/utility incentives where applicable.
+    unit: project
+    metric: hardware
+  - name: Tesla Electric (Texas Retail)
+    description: Out-of-scope for Fleet API integration cost; included for completeness. Retail electricity tariff with VPP dispatch revenue offsets.
+    unit: kWh
+    metric: energy
+notes:
+  - Fleet API per-request billing is exposed by partner registration on developer.tesla.com; current rates
+    are not publicly tabled.
+  - For utility-scale Megapack customers, Tesla's Autobidder service may be billed on a revenue-share or
+    SaaS basis depending on contract.
+  - FOCUS mapping above covers the Fleet API surface only; hardware capex flows through a separate
+    purchase contract, not through API usage billing.

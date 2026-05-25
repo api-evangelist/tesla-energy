@@ -1,0 +1,47 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tesla Fleet Energy API — Operation Mode
+  description: Set Powerwall operation mode — self_consumption, backup, or autonomous. Requires the
+    energy_cmds scope.
+  tags:
+    - Tesla
+    - Energy
+    - Powerwall
+    - Operation
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      TESLA_FLEET_TOKEN: TESLA_FLEET_TOKEN
+capability:
+  consumes:
+    - type: http
+      namespace: fleet-energy-operation
+      baseUri: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+      description: Tesla Fleet Energy API — operation mode write capability.
+      headers:
+        Authorization: Bearer ${env.TESLA_FLEET_TOKEN}
+        Content-Type: application/json
+      resources:
+        - name: energy-sites-operation
+          path: /energy_sites/{site_id}/operation
+          operations:
+            - name: setsiteoperation
+              method: POST
+              description: Tesla Set Site Operation Mode — self_consumption, backup, or autonomous
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: site_id
+                  in: path
+                  type: string
+                  required: true
+                - name: body
+                  in: body
+                  type: object
+                  description: '{ "default_real_mode": "self_consumption|backup|autonomous" }'
+                  required: true

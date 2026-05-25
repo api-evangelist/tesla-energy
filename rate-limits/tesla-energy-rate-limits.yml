@@ -1,0 +1,60 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Tesla Energy
+providerId: tesla-energy
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Rate Limiting
+  - Quotas
+  - Fleet API
+  - Energy
+description: Rate-limit definition for the Tesla Fleet API energy_sites surface. Tesla applies per-partner
+  daily request budgets and per-site command throttles. Exact numeric caps are published on the Fleet
+  API billing-and-limits page and should be reconciled at integration time.
+sources:
+  - https://developer.tesla.com/docs/fleet-api/billing-and-limits
+headers:
+  limit: x-ratelimit-limit
+  remaining: x-ratelimit-remaining
+  reset: x-ratelimit-reset
+  retryAfter: retry-after
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+algorithm: token-bucket
+scopes:
+  - name: energy_device_data
+    description: Required for all GET endpoints under /energy_sites/{site_id}/...
+  - name: energy_cmds
+    description: Required for all write/command endpoints (backup, operation, storm_mode, time_of_use_settings, off_grid_vehicle_charging_reserve).
+limits:
+  - tier: Free
+    scope: energy_device_data
+    surface: /energy_sites/{site_id}/live_status
+    rate: per-site
+    timeFrame: day
+    note: Per-site read budget; Tesla publishes the exact cap on developer.tesla.com.
+  - tier: Free
+    scope: energy_device_data
+    surface: /energy_sites/{site_id}/calendar_history
+    rate: per-site
+    timeFrame: day
+    note: Calendar history reads are heavier than live_status and may carry a tighter cap.
+  - tier: Free
+    scope: energy_cmds
+    surface: /energy_sites/{site_id}/backup
+    rate: per-site
+    timeFrame: day
+    note: Command endpoints are throttled per site to prevent thrashing.
+  - tier: Paid
+    scope: energy_device_data
+    rate: per-partner
+    timeFrame: day
+    note: Higher caps after partner registration and billing setup. See Tesla's billing-and-limits page.
+notes:
+  - All Fleet API calls require an OAuth bearer token from auth.tesla.com.
+  - Energy command endpoints require the owner to have paired a third-party virtual key with the partner application.
+  - Per-vehicle and per-site daily budgets are billed separately from per-partner monthly budgets.

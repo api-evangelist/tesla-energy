@@ -1,0 +1,47 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tesla Fleet Energy API — Backup Reserve
+  description: Set the percent state-of-charge that Powerwall holds in reserve for grid outages.
+    Requires the energy_cmds scope.
+  tags:
+    - Tesla
+    - Energy
+    - Powerwall
+    - Backup
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      TESLA_FLEET_TOKEN: TESLA_FLEET_TOKEN
+capability:
+  consumes:
+    - type: http
+      namespace: fleet-energy-backup
+      baseUri: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+      description: Tesla Fleet Energy API — backup reserve write capability.
+      headers:
+        Authorization: Bearer ${env.TESLA_FLEET_TOKEN}
+        Content-Type: application/json
+      resources:
+        - name: energy-sites-backup
+          path: /energy_sites/{site_id}/backup
+          operations:
+            - name: setbackupreservepercent
+              method: POST
+              description: Tesla Set Backup Reserve Percent (0-100)
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: site_id
+                  in: path
+                  type: string
+                  required: true
+                - name: body
+                  in: body
+                  type: object
+                  description: '{ "backup_reserve_percent": <int 0-100> }'
+                  required: true

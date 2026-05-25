@@ -1,0 +1,130 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "tesla": "https://www.tesla.com/ns/",
+    "tesla-energy": "https://raw.githubusercontent.com/api-evangelist/tesla-energy/refs/heads/main/json-ld/tesla-energy-context.jsonld#",
+    "schema": "https://schema.org/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "unit": "http://qudt.org/vocab/unit/",
+    "EnergySite": "tesla-energy:EnergySite",
+    "Powerwall": "tesla-energy:Powerwall",
+    "Megapack": "tesla-energy:Megapack",
+    "SolarRoof": "tesla-energy:SolarRoof",
+    "SolarPanels": "tesla-energy:SolarPanels",
+    "SolarInverter": "tesla-energy:SolarInverter",
+    "Gateway": "tesla-energy:Gateway",
+    "LiveStatus": "tesla-energy:LiveStatus",
+    "CalendarHistoryBucket": "tesla-energy:CalendarHistoryBucket",
+    "Program": "tesla-energy:Program",
+    "TimeOfUseSettings": "tesla-energy:TimeOfUseSettings",
+    "id": {
+      "@id": "schema:identifier",
+      "@type": "schema:Text"
+    },
+    "site_name": {
+      "@id": "schema:name",
+      "@type": "schema:Text"
+    },
+    "address": {
+      "@id": "schema:address",
+      "@type": "schema:PostalAddress"
+    },
+    "installation_date": {
+      "@id": "schema:dateCreated",
+      "@type": "schema:DateTime"
+    },
+    "installation_time_zone": {
+      "@id": "schema:additionalProperty",
+      "@type": "schema:Text"
+    },
+    "version": {
+      "@id": "schema:softwareVersion",
+      "@type": "schema:Text"
+    },
+    "battery_count": {
+      "@id": "tesla-energy:batteryCount",
+      "@type": "schema:Integer"
+    },
+    "nameplate_power": {
+      "@id": "tesla-energy:nameplatePower",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W"
+    },
+    "nameplate_energy": {
+      "@id": "tesla-energy:nameplateEnergy",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W-HR"
+    },
+    "backup_reserve_percent": {
+      "@id": "tesla-energy:backupReservePercent",
+      "@type": "schema:Integer"
+    },
+    "default_real_mode": {
+      "@id": "tesla-energy:operationMode",
+      "@type": "schema:Text"
+    },
+    "solar_power": {
+      "@id": "tesla-energy:solarPower",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W"
+    },
+    "battery_power": {
+      "@id": "tesla-energy:batteryPower",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W"
+    },
+    "grid_power": {
+      "@id": "tesla-energy:gridPower",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W"
+    },
+    "load_power": {
+      "@id": "tesla-energy:loadPower",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W"
+    },
+    "generator_power": {
+      "@id": "tesla-energy:generatorPower",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W"
+    },
+    "percentage_charged": {
+      "@id": "tesla-energy:stateOfChargePercent",
+      "@type": "schema:Number"
+    },
+    "energy_left": {
+      "@id": "tesla-energy:energyRemaining",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W-HR"
+    },
+    "total_pack_energy": {
+      "@id": "tesla-energy:totalPackEnergy",
+      "@type": "qudt:QuantityValue",
+      "unit": "unit:W-HR"
+    },
+    "grid_status": {
+      "@id": "tesla-energy:gridStatus",
+      "@type": "schema:Text"
+    },
+    "island_status": {
+      "@id": "tesla-energy:islandStatus",
+      "@type": "schema:Text"
+    },
+    "storm_mode_active": {
+      "@id": "tesla-energy:stormModeActive",
+      "@type": "schema:Boolean"
+    },
+    "storm_mode_enabled": {
+      "@id": "tesla-energy:stormModeEnabled",
+      "@type": "schema:Boolean"
+    },
+    "off_grid_vehicle_charging_reserve_percent": {
+      "@id": "tesla-energy:offGridVehicleChargingReservePercent",
+      "@type": "schema:Integer"
+    },
+    "timestamp": {
+      "@id": "schema:dateModified",
+      "@type": "schema:DateTime"
+    }
+  }
+}

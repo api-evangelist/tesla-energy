@@ -1,0 +1,72 @@
+extends:
+  - spectral:oas
+formats:
+  - oas3
+documentationUrl: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+description: Spectral ruleset enforcing Tesla Fleet Energy API conventions — bearer-auth, energy_sites
+  path shape, snake_case fields, title-case summaries, and standard error responses.
+rules:
+  tesla-energy-info-contact:
+    description: Tesla Energy API specs must declare a contact pointing at developer.tesla.com.
+    given: $.info.contact
+    severity: warn
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: '^https://(developer|www)\.tesla\.com.*$'
+  tesla-energy-bearer-auth:
+    description: All operations must use the BearerAuth security scheme.
+    given: $.paths.*[get,post,put,delete,patch]
+    severity: error
+    then:
+      field: security
+      function: defined
+  tesla-energy-energy-sites-path:
+    description: Energy site paths must live under /energy_sites/{site_id}/...
+    given: $.paths
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/(products|energy_sites/.*)$'
+  tesla-energy-title-case-summary:
+    description: Operation summaries should be in Title Case and start with "Tesla ".
+    given: $.paths.*[get,post,put,delete,patch].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Tesla [A-Z][A-Za-z0-9\- ]+$'
+  tesla-energy-snake-case-properties:
+    description: Schema properties should be snake_case to match Tesla's payload conventions.
+    given: $.components.schemas.*.properties.*~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+  tesla-energy-operation-id-camel:
+    description: Operation IDs should be camelCase.
+    given: $.paths.*[get,post,put,delete,patch].operationId
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][A-Za-z0-9]+$'
+  tesla-energy-401-defined:
+    description: All operations must declare a 401 Unauthorized response.
+    given: $.paths.*[get,post,put,delete,patch].responses
+    severity: warn
+    then:
+      field: '401'
+      function: defined
+  tesla-energy-server-fleet:
+    description: Server URL must point at a fleet-api.*.cloud.tesla.com host.
+    given: $.servers.*
+    severity: error
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: '^https://fleet-api\.(prd|stg)\.[a-z]+\.vn\.cloud\.tesla\.com/api/1$'

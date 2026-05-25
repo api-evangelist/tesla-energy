@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/tesla-energy/refs/heads/main/json-schema/tesla-energy-live-status-schema.json",
+  "title": "Tesla Energy Site Live Status",
+  "description": "Real-time power flow and state-of-charge snapshot returned by GET /energy_sites/{site_id}/live_status. Power values are signed: positive battery_power means discharging, positive grid_power means importing from the grid.",
+  "type": "object",
+  "required": ["timestamp"],
+  "properties": {
+    "solar_power": {
+      "type": "number",
+      "description": "Instantaneous solar generation in watts."
+    },
+    "battery_power": {
+      "type": "number",
+      "description": "Instantaneous battery power in watts (positive = discharging)."
+    },
+    "grid_power": {
+      "type": "number",
+      "description": "Instantaneous grid power in watts (positive = importing)."
+    },
+    "load_power": {
+      "type": "number",
+      "description": "Instantaneous home or site load in watts."
+    },
+    "generator_power": {
+      "type": "number",
+      "description": "Instantaneous generator power in watts (if installed)."
+    },
+    "percentage_charged": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Battery state-of-charge as a percent."
+    },
+    "energy_left": {
+      "type": "number",
+      "description": "Battery energy remaining in watt-hours."
+    },
+    "total_pack_energy": {
+      "type": "number",
+      "description": "Total Powerwall (or Megapack) pack energy capacity in watt-hours."
+    },
+    "grid_status": {
+      "type": "string",
+      "enum": ["Active", "Inactive", "Unknown"],
+      "description": "Whether the grid is currently connected."
+    },
+    "backup_capable": {
+      "type": "boolean",
+      "description": "Whether the site can island and provide backup power."
+    },
+    "storm_mode_active": {
+      "type": "boolean",
+      "description": "True when Storm Mode is currently pre-charging or holding."
+    },
+    "island_status": {
+      "type": "string",
+      "enum": ["on_grid", "off_grid", "off_grid_intentional", "off_grid_unintentional"],
+      "description": "Detailed grid-coupling state."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Reading timestamp in ISO-8601."
+    }
+  }
+}

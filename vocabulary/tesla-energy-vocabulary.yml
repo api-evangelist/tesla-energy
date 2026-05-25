@@ -1,0 +1,93 @@
+name: Tesla Energy Vocabulary
+description: Domain vocabulary for the Tesla Energy product line and Fleet API energy_sites surface.
+  Operational dimensions (read state, control state) and capability dimensions (storm mode, time-of-use,
+  off-grid charging, virtual power plant) mapped together so the same terms can be used across docs,
+  schemas, and Naftiko capabilities.
+created: '2026-05-25'
+modified: '2026-05-25'
+tags:
+  - Tesla
+  - Energy
+  - Powerwall
+  - Megapack
+  - Solar
+  - Vocabulary
+products:
+  - name: Powerwall
+    description: 13.5 kWh residential lithium-iron-phosphate battery with integrated inverter (Powerwall 3) or paired inverter (Powerwall 2 / +). Up to 10 units stackable per site.
+  - name: Megapack
+    description: Utility-scale containerized battery storage system. Up to 3.9 MWh per unit. Used for grid-scale storage, frequency regulation, and renewable integration.
+  - name: Solar Roof
+    description: Integrated solar shingles for new and retrofit residential roofs.
+  - name: Solar Panels
+    description: Retrofit photovoltaic panels paired with the Tesla Solar Inverter.
+  - name: Solar Inverter
+    description: Tesla-branded string inverter with cellular connectivity, OTA updates, and integrated rapid shutdown.
+  - name: Backup Gateway
+    description: Tesla Energy Gateway — the site controller that bridges Powerwall, Solar, and the grid; the API endpoint that Fleet API energy_sites operations talk to.
+  - name: Autobidder
+    description: Tesla's real-time energy trading and dispatch platform for utility-scale storage assets.
+  - name: Tesla Electric
+    description: Tesla's retail electricity provider / virtual utility in Texas. Powerwall owners can participate in grid-services dispatch and earn revenue.
+operationModes:
+  - name: self_consumption
+    description: Prioritize using on-site solar and stored energy before importing from the grid.
+  - name: backup
+    description: Hold the full battery in reserve and only discharge during grid outages.
+  - name: autonomous
+    description: Algorithmic mode; Tesla optimizes against tariffs, weather, and grid conditions.
+controlSurfaces:
+  - name: Backup Reserve Percent
+    path: /energy_sites/{site_id}/backup
+    scope: energy_cmds
+    description: Percent state-of-charge reserved for grid outages.
+  - name: Storm Mode
+    path: /energy_sites/{site_id}/storm_mode
+    scope: energy_cmds
+    description: Pre-charge to 100% ahead of severe weather alerts.
+  - name: Time Of Use
+    path: /energy_sites/{site_id}/time_of_use_settings
+    scope: energy_cmds
+    description: Tariff schedule and peak/off-peak optimization.
+  - name: Off-Grid Vehicle Charging Reserve
+    path: /energy_sites/{site_id}/off_grid_vehicle_charging_reserve
+    scope: energy_cmds
+    description: Reserve floor for EV charging when islanded from the grid.
+readSurfaces:
+  - name: Products
+    path: /products
+    scope: energy_device_data
+  - name: Site Info
+    path: /energy_sites/{site_id}/site_info
+    scope: energy_device_data
+  - name: Live Status
+    path: /energy_sites/{site_id}/live_status
+    scope: energy_device_data
+  - name: Calendar History
+    path: /energy_sites/{site_id}/calendar_history
+    scope: energy_device_data
+  - name: Programs
+    path: /energy_sites/{site_id}/programs
+    scope: energy_device_data
+units:
+  - name: kW
+    description: Kilowatts (instantaneous power); the Fleet API returns watts but most consumer views display kW.
+  - name: kWh
+    description: Kilowatt-hours (energy); calendar_history is reported in watt-hours and aggregated by period.
+  - name: percent
+    description: State-of-charge and reserve thresholds use integer percent 0-100.
+gridStatuses:
+  - Active
+  - Inactive
+  - Unknown
+islandStatuses:
+  - on_grid
+  - off_grid
+  - off_grid_intentional
+  - off_grid_unintentional
+historyKinds:
+  - energy
+  - power
+  - self_consumption
+  - savings
+  - time_of_use

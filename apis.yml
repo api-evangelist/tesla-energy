@@ -1,0 +1,195 @@
+aid: tesla-energy
+url: https://raw.githubusercontent.com/api-evangelist/tesla-energy/refs/heads/main/apis.yml
+name: Tesla Energy
+description: Tesla Energy is Tesla's solar generation and battery storage business unit, encompassing
+  residential Powerwall, utility-scale Megapack, retrofit solar panels, and the Solar Roof. The Fleet API
+  exposes energy_sites endpoints that let partners and owners read live power, calendar history, and site
+  info, and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
+  time-of-use settings, and off-grid vehicle charging reserve — the same control surface that powers the
+  Tesla app and integrators like Autobidder, Tesla Electric (virtual power plant), and third-party home
+  energy dashboards.
+image: https://www.tesla.com/favicon.ico
+tags:
+  - Energy
+  - Clean Energy
+  - Solar
+  - Battery Storage
+  - Powerwall
+  - Megapack
+  - Solar Roof
+  - Virtual Power Plant
+  - IoT
+  - Grid Services
+  - Home Energy
+  - Utility Scale
+kind: contract
+access: 3rd-Party
+specificationVersion: '0.19'
+created: '2026-05-25'
+modified: '2026-05-25'
+position: Producing
+apis:
+  - aid: tesla-energy:fleet-energy-api
+    name: Tesla Fleet Energy API
+    description: The energy_sites surface of the Tesla Fleet API. Provides OAuth-authenticated read access
+      to Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
+      and write access to backup reserve, operation mode, storm mode, time-of-use settings, and off-grid
+      vehicle charging reserve. Requires energy_device_data (read) and energy_cmds (write) scopes.
+    humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+    baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+    tags:
+      - Energy
+      - Powerwall
+      - Solar
+      - Megapack
+      - Fleet API
+      - Energy Sites
+      - Backup Reserve
+      - Storm Mode
+      - Time Of Use
+      - Virtual Power Plant
+    properties:
+      - url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+        type: Documentation
+      - url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+        type: Authentication
+      - url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+        type: Documentation
+      - url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+        type: Documentation
+      - url: openapi/tesla-energy-fleet-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/tesla-energy-site-schema.json
+        type: JSONSchema
+      - url: json-schema/tesla-energy-live-status-schema.json
+        type: JSONSchema
+      - url: json-ld/tesla-energy-context.jsonld
+        type: JSONLD
+      - url: capabilities/fleet-energy-sites.yaml
+        type: NaftikoCapability
+      - url: capabilities/fleet-energy-backup-reserve.yaml
+        type: NaftikoCapability
+      - url: capabilities/fleet-energy-operation.yaml
+        type: NaftikoCapability
+      - url: capabilities/fleet-energy-storm-mode.yaml
+        type: NaftikoCapability
+      - url: capabilities/fleet-energy-time-of-use.yaml
+        type: NaftikoCapability
+      - url: examples/tesla-energy-live-status-example.json
+        type: Example
+      - url: examples/tesla-energy-site-info-example.json
+        type: Example
+      - url: rules/tesla-energy-rules.yml
+        type: SpectralRules
+common:
+  - type: Portal
+    url: https://www.tesla.com/energy
+  - type: Portal
+    url: https://developer.tesla.com/
+    name: Tesla Developer Portal
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api
+    name: Tesla Fleet API
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+    name: Energy Endpoints
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+    name: Energy Products
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+    name: Fleet API Authentication
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/third-party-tokens
+    name: Third-Party Tokens
+  - type: RateLimits
+    url: https://developer.tesla.com/docs/fleet-api/billing-and-limits
+    name: Fleet API Billing and Limits
+  - type: Billing
+    url: https://developer.tesla.com/docs/fleet-api/billing-and-limits
+    name: Fleet API Billing
+  - type: ChangeLog
+    url: https://developer.tesla.com/docs/fleet-api/announcements
+    name: Fleet API Announcements
+  - type: FAQ
+    url: https://developer.tesla.com/docs/fleet-api/support/faq
+    name: Fleet API FAQ
+  - type: Support
+    url: https://developer.tesla.com/docs/fleet-api/support/contact
+  - type: GitHubOrganization
+    url: https://github.com/teslamotors
+  - type: SDK
+    url: https://github.com/teslamotors/vehicle-command
+    name: Tesla Vehicle Command SDK (Go) — Fleet API HTTP proxy
+  - type: SDK
+    url: https://github.com/tdorssers/TeslaPy
+    name: TeslaPy (community Python SDK, energy_sites support)
+  - type: SDK
+    url: https://github.com/timdorr/tesla-api
+    name: timdorr/tesla-api (community Owner API docs, includes energy)
+  - type: Postman
+    url: https://documenter.getpostman.com/view/781424/2s9YRCWB4f
+    name: Tesla Postman Collection
+  - type: Website
+    url: https://www.tesla.com
+  - type: Website
+    url: https://www.tesla.com/powerwall
+    name: Powerwall
+  - type: Website
+    url: https://www.tesla.com/megapack
+    name: Megapack
+  - type: Website
+    url: https://www.tesla.com/solarpanels
+    name: Solar Panels
+  - type: Website
+    url: https://www.tesla.com/solarroof
+    name: Solar Roof
+  - type: Website
+    url: https://www.tesla.com/electric
+    name: Tesla Electric (virtual utility, Texas)
+  - type: Website
+    url: https://www.tesla.com/autobidder
+    name: Autobidder (energy trading platform)
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/tesla-motors
+  - type: TermsOfService
+    url: https://www.tesla.com/legal
+  - type: PrivacyPolicy
+    url: https://www.tesla.com/legal/privacy
+  - type: Plans
+    url: plans/tesla-energy-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/tesla-energy-rate-limits.yml
+  - type: FinOps
+    url: finops/tesla-energy-finops.yml
+  - type: Features
+    data:
+      - Powerwall residential battery — 13.5 kWh per unit, stackable up to 10 units, with integrated inverter and gateway in Powerwall+
+      - Megapack utility-scale battery — up to 3.9 MWh per unit, containerized DC architecture for grid storage and frequency regulation
+      - Solar Roof — integrated solar shingles for new and retrofit residential roofs
+      - Retrofit solar panels — private-label panels paired with Tesla Solar Inverter (cellular-connected, OTA updates)
+      - Autobidder — real-time energy trading and dispatch platform for utility-scale storage
+      - Tesla Electric — virtual utility / retail electricity provider in Texas with Powerwall participation
+      - Fleet API energy_sites endpoints for partner read/write access to site state and operation
+      - Backup reserve control — set the % state-of-charge Powerwall holds in reserve for outages
+      - Operation mode control — self_consumption, backup-only, autonomous (algorithmic)
+      - Storm Mode — automatically charges Powerwall to 100% ahead of severe weather alerts
+      - Time-of-Use settings — tariff schedule and peak/off-peak rate plan management
+      - Off-Grid Vehicle Charging Reserve — separate reserve threshold for EV charging during outages
+      - Calendar history — historical energy production, consumption, grid import/export, battery flow
+      - Live Status — real-time site power, state-of-charge, grid status, and load breakdown
+      - Programs — virtual power plant and grid services participation status
+      - Tesla app — single-pane control for Powerwall, Solar, and vehicles (consumer surface above the API)
+      - Lathrop, CA Megapack factory (operational since 2022) — 40 GWh/year capacity
+      - Shanghai Megafactory — Tesla's second Megapack factory, online 2025
+      - Energy revenue $10.1B in 2024 (+67% YoY); 31.4 GWh battery deployments in 2023 (+113% YoY)
+    sources:
+      - https://developer.tesla.com/docs/fleet-api/endpoints/energy
+      - https://www.tesla.com/energy
+      - https://www.tesla.com/powerwall
+      - https://www.tesla.com/megapack
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
+    X: apievangelist
+    url: https://apievangelist.com

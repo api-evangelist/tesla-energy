@@ -1,0 +1,126 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Tesla Energy
+providerId: tesla-energy
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Energy
+  - Powerwall
+  - Megapack
+  - Solar
+  - Fleet API
+description: Reconciled commercial-surface scaffold for Tesla Energy. The consumer hardware lines
+  (Powerwall, Megapack, Solar Roof, Solar Panels) are quoted per project by Tesla rather than a
+  published list price, so this file captures the developer-side Fleet API metering and the published
+  starting price points for hardware. Pricing should be reconciled against tesla.com/energy at the time
+  of integration.
+sources:
+  - https://www.tesla.com/powerwall
+  - https://www.tesla.com/megapack
+  - https://www.tesla.com/solarroof
+  - https://www.tesla.com/solarpanels
+  - https://developer.tesla.com/docs/fleet-api/billing-and-limits
+plans:
+  - id: tesla-energy-fleet-api-free
+    name: Fleet API — Free Tier
+    type: freemium
+    description: Free tier of the Tesla Fleet API for read access to energy_sites endpoints. Per-partner
+      and per-vehicle/site daily request budgets apply; see Fleet API billing-and-limits for exact caps.
+    entries:
+      - label: Fleet API Requests
+        name: fleet_api_requests
+        type: quota
+        metric: requests
+        limit: -1
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+        description: Per-partner / per-site Fleet API request budget. Exact caps published at developer.tesla.com.
+  - id: tesla-energy-fleet-api-paid
+    name: Fleet API — Paid Tier
+    type: usage-based
+    description: Paid Fleet API usage beyond free quotas. Tesla bills partners for vehicle-command,
+      vehicle-data, and energy-data calls on a per-call basis; rates are negotiated and disclosed in the
+      developer portal billing page.
+    entries:
+      - label: Energy Data Requests
+        name: energy_data_requests
+        type: metered
+        metric: requests
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: 'See developer.tesla.com'
+        userMultiplied: false
+        description: Metered energy_device_data requests beyond the free tier.
+      - label: Energy Command Requests
+        name: energy_command_requests
+        type: metered
+        metric: requests
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: 'See developer.tesla.com'
+        userMultiplied: false
+        description: Metered energy_cmds requests beyond the free tier.
+  - id: tesla-energy-powerwall
+    name: Powerwall (Hardware)
+    type: hardware
+    description: Tesla Powerwall residential battery storage. Single unit lists in the $9,000-$11,000
+      range before installation and incentives; integrated solar bundles vary by site. Final pricing is
+      quoted per project on tesla.com/powerwall.
+    entries:
+      - label: Powerwall Unit (Reference Price)
+        name: powerwall_unit
+        type: one-time
+        metric: unit
+        limit: 1
+        timeFrame: one-time
+        geo: US
+        unit: 1
+        price: '9,200'
+        userMultiplied: false
+        description: Reference starting price for a single Powerwall 3 unit before installation, taxes,
+          and incentives. Quoted per project.
+  - id: tesla-energy-megapack
+    name: Megapack (Hardware)
+    type: hardware
+    description: Tesla Megapack utility-scale battery. Quoted per project for utility, IPP, and large
+      commercial customers; tesla.com/megapack hosts a configurator with site-specific quotes.
+    entries:
+      - label: Megapack 2XL (Reference)
+        name: megapack_2xl
+        type: one-time
+        metric: unit
+        limit: 1
+        timeFrame: one-time
+        geo: global
+        unit: 1
+        price: 'Quote'
+        userMultiplied: false
+        description: Megapack 2XL — up to 3.9 MWh per unit. Final pricing quoted per project.
+  - id: tesla-energy-solar
+    name: Solar Roof and Solar Panels (Hardware)
+    type: hardware
+    description: Tesla Solar Roof (integrated shingles) and retrofit Solar Panels paired with the Tesla
+      Solar Inverter. Pricing is quoted per project on tesla.com/solar and varies by system size, roof
+      area, and incentives.
+    entries:
+      - label: Retrofit Solar (per kW reference)
+        name: solar_panel_kw
+        type: one-time
+        metric: kW
+        limit: -1
+        timeFrame: one-time
+        geo: US
+        unit: 1
+        price: 'Quote'
+        userMultiplied: false
+        description: Retrofit solar panel pricing varies by system size. Quoted per project.
