@@ -1,0 +1,327 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tesla Fleet Energy API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tesla.com/oauth2/v3/authorize",
+      "accessTokenUrl": "https://auth.tesla.com/oauth2/v3/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla List Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/products"
+          },
+          "docs": "Returns a list of products (vehicles and energy_sites) that the authenticated user has access to. Energy sites are identified by an `energy_site_id` and may include Powerwall, Solar, and Megapack assets."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Site Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Get Energy Site Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/site_info",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ]
+          },
+          "docs": "Returns static configuration of the energy site — components installed (Powerwall, Solar, Megapack), address, time zone, version, asset registration metadata, and gateway identifiers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Live Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Get Energy Site Live Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/live_status",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ]
+          },
+          "docs": "Returns real-time power flow at the energy site — solar production, battery charge/discharge, grid import/export, and home/load consumption — plus state-of-charge, grid status, storm-mode active flag, and timestamp."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Get Energy Site Calendar History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/calendar_history",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "query",
+                "description": "Type of history to retrieve."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Aggregation period."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 end of the window."
+              },
+              {
+                "name": "time_zone",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns time-series energy data — production, consumption, grid import/export, battery charge/discharge — aggregated by day, week, month, or year. Supports kind=energy, power, self_consumption, savings, and time_of_use."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Backup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Set Backup Reserve Percent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/backup",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the percent state-of-charge that Powerwall holds in reserve for grid outages. Range 0-100. Requires the energy_cmds scope."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Operation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Set Site Operation Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/operation",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the Powerwall operation mode. `self_consumption` prioritizes using stored solar on-site; `backup` reserves battery for outages; `autonomous` lets Tesla optimize against rates and grid conditions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Storm Mode",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Set Storm Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/storm_mode",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables or disables Storm Mode. When enabled, Powerwall automatically pre-charges to 100% ahead of severe weather alerts in the site's region."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Time Of Use",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Set Time Of Use Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/time_of_use_settings",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the time-of-use tariff schedule for the site, including peak/off-peak windows, seasonal rates, and self-consumption optimization toggles."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Off Grid Charging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Set Off-Grid Vehicle Charging Reserve",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/off_grid_vehicle_charging_reserve",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the percent state-of-charge below which Powerwall will stop powering EV charging during a grid outage. Lets owners protect home loads while still allowing some vehicle charging when islanded."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Programs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Get Energy Site Programs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/programs",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ]
+          },
+          "docs": "Returns virtual power plant and grid-services programs the site is eligible for and currently enrolled in (e.g., regional VPP, demand response)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

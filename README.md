@@ -1,101 +1,108 @@
 # Tesla Energy (tesla-energy)
 
-Tesla Energy is Tesla's solar generation and battery storage business unit, encompassing residential Powerwall, utility-scale Megapack, retrofit solar panels, and the Solar Roof. The Fleet API exposes `energy_sites` endpoints that let partners and owners read live power, calendar history, and site info, and write backup reserve, operation mode, storm mode, time-of-use settings, and off-grid vehicle charging reserve — the same control surface that powers the Tesla app, Autobidder, and Tesla Electric (Texas VPP).
+Tesla Energy is Tesla's solar generation and battery storage business unit, encompassing residential Powerwall, utility-scale Megapack, retrofit solar panels, and the Solar Roof. The Fleet API exposes energy_sites endpoints that let partners and owners read live power, calendar history, and site info, and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode, time-of-use settings, and off-grid vehicle charging reserve — the same control surface that powers the Tesla app and integrators like Autobidder, Tesla Electric (virtual power plant), and third-party home energy dashboards.
 
-**APIs.json:** [apis.yml](apis.yml)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/tesla-energy/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/tesla-energy/refs/heads/main/apis.yml)
 
-**Portal:** [https://developer.tesla.com/](https://developer.tesla.com/)
-**Energy product portal:** [https://www.tesla.com/energy](https://www.tesla.com/energy)
-**Energy endpoints documentation:** [https://developer.tesla.com/docs/fleet-api/endpoints/energy](https://developer.tesla.com/docs/fleet-api/endpoints/energy)
+## Scope
+
+- **Position:** Producing
+- **Access:** 3rd-Party
 
 ## Tags
 
-Energy, Clean Energy, Solar, Battery Storage, Powerwall, Megapack, Solar Roof, Virtual Power Plant, IoT, Grid Services, Home Energy, Utility Scale
+- Energy
+- Clean Energy
+- Solar
+- Battery Storage
+- Powerwall
+- Megapack
+- Solar Roof
+- Virtual Power Plant
+- IoT
+- Grid Services
+- Home Energy
+- Utility Scale
 
 ## Timestamps
 
 - **Created:** 2026-05-25
 - **Modified:** 2026-05-25
 
-## Products
-
-| Product | Customer | Capacity / Power |
-|---|---|---|
-| Powerwall 3 | Residential | 13.5 kWh, 11.5 kW continuous (integrated inverter); stackable to 10 units |
-| Megapack 2XL | Utility / IPP / commercial | Up to 3.9 MWh per unit, containerized DC architecture |
-| Solar Roof | Residential | Integrated solar shingles, paired with Powerwall and Tesla Solar Inverter |
-| Solar Panels | Residential | Retrofit photovoltaic panels paired with Tesla Solar Inverter |
-| Tesla Solar Inverter | Residential | String inverter with cellular connectivity and OTA updates |
-| Autobidder | Utility / IPP | Real-time energy trading and dispatch software for storage assets |
-| Tesla Electric | Residential (Texas) | Retail electricity provider with VPP participation for Powerwall owners |
-
 ## APIs
 
 ### Tesla Fleet Energy API
 
-The `energy_sites` surface of the Tesla Fleet API. Read access (`energy_device_data` scope) for products, site info, live status, calendar history, and programs; write access (`energy_cmds` scope) for backup reserve, operation mode, storm mode, time-of-use settings, and off-grid vehicle charging reserve.
+The energy_sites surface of the Tesla Fleet API. Provides OAuth-authenticated read access to Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs — and write access to backup reserve, operation mode, storm mode, time-of-use settings, and off-grid vehicle charging reserve. Requires energy_device_data (read) and energy_cmds (write) scopes.
 
-**Human URL:** [https://developer.tesla.com/docs/fleet-api/endpoints/energy](https://developer.tesla.com/docs/fleet-api/endpoints/energy)
-**Base URL:** `https://fleet-api.prd.na.vn.cloud.tesla.com/api/1`
+- **Human URL:** [https://developer.tesla.com/docs/fleet-api/endpoints/energy](https://developer.tesla.com/docs/fleet-api/endpoints/energy)
+- **Base URL:** `https://fleet-api.prd.na.vn.cloud.tesla.com/api/1`
 
-- [OpenAPI](openapi/tesla-energy-fleet-api-openapi.yml)
-- [JSON Schema — Energy Site](json-schema/tesla-energy-site-schema.json)
-- [JSON Schema — Live Status](json-schema/tesla-energy-live-status-schema.json)
-- [JSON-LD context](json-ld/tesla-energy-context.jsonld)
-- [Example — Site Info](examples/tesla-energy-site-info-example.json)
-- [Example — Live Status](examples/tesla-energy-live-status-example.json)
-- [Spectral rules](rules/tesla-energy-rules.yml)
-- [Vocabulary](vocabulary/tesla-energy-vocabulary.yml)
+#### Tags
 
-#### Naftiko capabilities
+- Energy
+- Powerwall
+- Solar
+- Megapack
+- Fleet API
+- Energy Sites
+- Backup Reserve
+- Storm Mode
+- Time Of Use
+- Virtual Power Plant
 
-| Capability | Scope | Surface |
-|---|---|---|
-| [Sites (read)](capabilities/fleet-energy-sites.yaml) | `energy_device_data` | `/products`, `/energy_sites/{id}/site_info`, `/live_status`, `/calendar_history`, `/programs` |
-| [Backup Reserve](capabilities/fleet-energy-backup-reserve.yaml) | `energy_cmds` | `/energy_sites/{id}/backup` |
-| [Operation Mode](capabilities/fleet-energy-operation.yaml) | `energy_cmds` | `/energy_sites/{id}/operation` |
-| [Storm Mode](capabilities/fleet-energy-storm-mode.yaml) | `energy_cmds` | `/energy_sites/{id}/storm_mode` |
-| [Time Of Use / Off-Grid Charging](capabilities/fleet-energy-time-of-use.yaml) | `energy_cmds` | `/energy_sites/{id}/time_of_use_settings`, `/off_grid_vehicle_charging_reserve` |
+#### Properties
 
-#### Endpoints at a glance
+- [Documentation](https://developer.tesla.com/docs/fleet-api/endpoints/energy)
+- [Authentication](https://developer.tesla.com/docs/fleet-api/authentication/overview)
+- [Documentation](https://developer.tesla.com/docs/fleet-api/products/energy-products)
+- [Documentation](https://developer.tesla.com/docs/fleet-api/virtual-key/overview)
+- [OpenAPI](openapi/tesla-energy-fleet-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/tesla-energy-fleet-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/tesla-energy-fleet-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/tesla-energy-site-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/tesla-energy-live-status-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/tesla-energy-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Example](examples/tesla-energy-live-status-example.json)
+- [Example](examples/tesla-energy-site-info-example.json)
+- [Spectral Rules](rules/tesla-energy-rules.yml)
 
-| Method | Path | Scope | Purpose |
-|---|---|---|---|
-| GET | `/products` | `energy_device_data` | Discover energy sites (and vehicles) on the account |
-| GET | `/energy_sites/{site_id}/site_info` | `energy_device_data` | Static site config — components, address, version |
-| GET | `/energy_sites/{site_id}/live_status` | `energy_device_data` | Real-time power flow and state-of-charge |
-| GET | `/energy_sites/{site_id}/calendar_history` | `energy_device_data` | Historical energy/power/self-consumption/savings/TOU buckets |
-| GET | `/energy_sites/{site_id}/programs` | `energy_device_data` | VPP and grid-services participation status |
-| POST | `/energy_sites/{site_id}/backup` | `energy_cmds` | Set backup reserve percent (0-100) |
-| POST | `/energy_sites/{site_id}/operation` | `energy_cmds` | Set mode: self_consumption, backup, or autonomous |
-| POST | `/energy_sites/{site_id}/storm_mode` | `energy_cmds` | Enable/disable Storm Mode pre-charging |
-| POST | `/energy_sites/{site_id}/time_of_use_settings` | `energy_cmds` | Update TOU tariff schedule and optimization |
-| POST | `/energy_sites/{site_id}/off_grid_vehicle_charging_reserve` | `energy_cmds` | Set EV reserve floor for islanded operation |
+## Common Properties
 
-## Pricing, rate limits, and FinOps
+- [Portal](https://www.tesla.com/energy)
+- [Portal](https://developer.tesla.com/)
+- [Documentation](https://developer.tesla.com/docs/fleet-api)
+- [Documentation](https://developer.tesla.com/docs/fleet-api/endpoints/energy)
+- [Documentation](https://developer.tesla.com/docs/fleet-api/products/energy-products)
+- [Authentication](https://developer.tesla.com/docs/fleet-api/authentication/overview)
+- [Authentication](https://developer.tesla.com/docs/fleet-api/authentication/third-party-tokens)
+- [Rate Limits](https://developer.tesla.com/docs/fleet-api/billing-and-limits)
+- [Billing](https://developer.tesla.com/docs/fleet-api/billing-and-limits)
+- [Changelog](https://developer.tesla.com/docs/fleet-api/announcements)
+- [F A Q](https://developer.tesla.com/docs/fleet-api/support/faq)
+- [Support](https://developer.tesla.com/docs/fleet-api/support/contact)
+- [GitHub Organization](https://github.com/teslamotors)
+- [SDK](https://github.com/teslamotors/vehicle-command)
+- [SDK](https://github.com/tdorssers/TeslaPy)
+- [SDK](https://github.com/timdorr/tesla-api)
+- [Postman](https://documenter.getpostman.com/view/781424/2s9YRCWB4f) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Website](https://www.tesla.com)
+- [Website](https://www.tesla.com/powerwall)
+- [Website](https://www.tesla.com/megapack)
+- [Website](https://www.tesla.com/solarpanels)
+- [Website](https://www.tesla.com/solarroof)
+- [Website](https://www.tesla.com/electric)
+- [Website](https://www.tesla.com/autobidder)
+- [LinkedIn](https://www.linkedin.com/company/tesla-motors)
+- [Terms of Service](https://www.tesla.com/legal)
+- [Privacy Policy](https://www.tesla.com/legal/privacy)
+- [Plans](plans/tesla-energy-plans-pricing.yml)
+- [Rate Limits](rate-limits/tesla-energy-rate-limits.yml)
+- [Fin Ops](finops/tesla-energy-finops.yml)
+- [Features](undefined)
 
-- [Plans](plans/tesla-energy-plans-pricing.yml) — Fleet API metered tiers plus reference hardware pricing for Powerwall, Megapack, Solar Roof, and Solar Panels.
-- [Rate limits](rate-limits/tesla-energy-rate-limits.yml) — per-site and per-partner daily request budgets across `energy_device_data` (read) and `energy_cmds` (write) scopes.
-- [FinOps](finops/tesla-energy-finops.yml) — FOCUS-aligned cost surfaces covering Fleet API metering and one-time hardware capex.
+## Maintainers
 
-## SDKs and developer tooling
-
-- [teslamotors/vehicle-command (Go)](https://github.com/teslamotors/vehicle-command) — Tesla's official Go SDK and `tesla-http-proxy`. Vehicle-focused, but the HTTP proxy issues authenticated calls that can be reused for energy_sites endpoints.
-- [tdorssers/TeslaPy](https://github.com/tdorssers/TeslaPy) — community Python SDK with first-class `Battery` and `SolarPanel` classes covering live status, calendar history, backup, operation, storm mode, time-of-use, off-grid reserve, and programs.
-- [timdorr/tesla-api](https://github.com/timdorr/tesla-api) — long-standing community documentation of the Owner API and Fleet API, including energy endpoints.
-- [Tesla Postman collection](https://documenter.getpostman.com/view/781424/2s9YRCWB4f).
-
-## Business context
-
-- 2024 energy revenue: $10.1B (+67% YoY); 2023 battery deployments: 31.4 GWh (+113% YoY).
-- Megapack factories: Lathrop, CA (40 GWh/yr) and Shanghai Megafactory (online 2025).
-- Tesla Electric operates in Texas as a retail electricity provider with VPP dispatch for Powerwall owners.
-- Autobidder is Tesla's real-time market-bidding platform for utility-scale Megapack deployments.
-
-## Run
-
-[Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
-
-## Maintainer
-
-- **Kin Lane** — [API Evangelist](https://apievangelist.com) — info@apievangelist.com
+**FN:** Kin Lane
+**Email:** info@apievangelist.com
+**URL:** https://apievangelist.com

@@ -1,13 +1,13 @@
 aid: tesla-energy
 url: https://raw.githubusercontent.com/api-evangelist/tesla-energy/refs/heads/main/apis.yml
 name: Tesla Energy
-description: Tesla Energy is Tesla's solar generation and battery storage business unit, encompassing
-  residential Powerwall, utility-scale Megapack, retrofit solar panels, and the Solar Roof. The Fleet API
-  exposes energy_sites endpoints that let partners and owners read live power, calendar history, and site
-  info, and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
-  time-of-use settings, and off-grid vehicle charging reserve — the same control surface that powers the
-  Tesla app and integrators like Autobidder, Tesla Electric (virtual power plant), and third-party home
-  energy dashboards.
+description: >-
+  Tesla Energy is Tesla's solar generation and battery storage business unit, encompassing residential Powerwall,
+  utility-scale Megapack, retrofit solar panels, and the Solar Roof. The Fleet API exposes energy_sites endpoints that
+  let partners and owners read live power, calendar history, and site info, and write backup reserve, operation mode
+  (self_consumption, backup, autonomous), storm mode, time-of-use settings, and off-grid vehicle charging reserve — the
+  same control surface that powers the Tesla app and integrators like Autobidder, Tesla Electric (virtual power plant),
+  and third-party home energy dashboards.
 image: https://www.tesla.com/favicon.ico
 tags:
   - Energy
@@ -31,10 +31,11 @@ position: Producing
 apis:
   - aid: tesla-energy:fleet-energy-api
     name: Tesla Fleet Energy API
-    description: The energy_sites surface of the Tesla Fleet API. Provides OAuth-authenticated read access
-      to Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
-      and write access to backup reserve, operation mode, storm mode, time-of-use settings, and off-grid
-      vehicle charging reserve. Requires energy_device_data (read) and energy_cmds (write) scopes.
+    description: >-
+      The energy_sites surface of the Tesla Fleet API. Provides OAuth-authenticated read access to Powerwall, Solar, and
+      Megapack site state — site info, live status, calendar history, programs — and write access to backup reserve,
+      operation mode, storm mode, time-of-use settings, and off-grid vehicle charging reserve. Requires
+      energy_device_data (read) and energy_cmds (write) scopes.
     humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
     baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
     tags:
@@ -65,16 +66,6 @@ apis:
         type: JSONSchema
       - url: json-ld/tesla-energy-context.jsonld
         type: JSONLD
-      - url: capabilities/fleet-energy-sites.yaml
-        type: NaftikoCapability
-      - url: capabilities/fleet-energy-backup-reserve.yaml
-        type: NaftikoCapability
-      - url: capabilities/fleet-energy-operation.yaml
-        type: NaftikoCapability
-      - url: capabilities/fleet-energy-storm-mode.yaml
-        type: NaftikoCapability
-      - url: capabilities/fleet-energy-time-of-use.yaml
-        type: NaftikoCapability
       - url: examples/tesla-energy-live-status-example.json
         type: Example
       - url: examples/tesla-energy-site-info-example.json
@@ -164,8 +155,12 @@ common:
     url: finops/tesla-energy-finops.yml
   - type: Features
     data:
-      - Powerwall residential battery — 13.5 kWh per unit, stackable up to 10 units, with integrated inverter and gateway in Powerwall+
-      - Megapack utility-scale battery — up to 3.9 MWh per unit, containerized DC architecture for grid storage and frequency regulation
+      - >-
+        Powerwall residential battery — 13.5 kWh per unit, stackable up to 10 units, with integrated inverter and
+        gateway in Powerwall+
+      - >-
+        Megapack utility-scale battery — up to 3.9 MWh per unit, containerized DC architecture for grid storage and
+        frequency regulation
       - Solar Roof — integrated solar shingles for new and retrofit residential roofs
       - Retrofit solar panels — private-label panels paired with Tesla Solar Inverter (cellular-connected, OTA updates)
       - Autobidder — real-time energy trading and dispatch platform for utility-scale storage
