@@ -67,9 +67,9 @@ apis:
       - url: json-ld/tesla-energy-context.jsonld
         type: JSONLD
       - url: examples/tesla-energy-live-status-example.json
-        type: Example
+        type: Examples
       - url: examples/tesla-energy-site-info-example.json
-        type: Example
+        type: Examples
       - url: rules/tesla-energy-rules.yml
         type: SpectralRules
 common:
@@ -109,13 +109,13 @@ common:
     url: https://developer.tesla.com/docs/fleet-api/support/contact
   - type: GitHubOrganization
     url: https://github.com/teslamotors
-  - type: SDK
+  - type: SDKs
     url: https://github.com/teslamotors/vehicle-command
     name: Tesla Vehicle Command SDK (Go) — Fleet API HTTP proxy
-  - type: SDK
+  - type: SDKs
     url: https://github.com/tdorssers/TeslaPy
     name: TeslaPy (community Python SDK, energy_sites support)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/timdorr/tesla-api
     name: timdorr/tesla-api (community Owner API docs, includes energy)
   - type: Postman
