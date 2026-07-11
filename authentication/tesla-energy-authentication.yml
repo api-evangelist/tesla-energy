@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/tesla-energy-fleet-api-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: BearerAuth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.tesla.com/oauth2/v3/authorize
+    tokenUrl: https://auth.tesla.com/oauth2/v3/token
+    scopes: 3
+  description: Tesla Fleet API OAuth 2.0 with PKCE. Scopes energy_device_data (read) and energy_cmds
+    (write) required for the energy_sites endpoints.
+  sources:
+  - openapi/tesla-energy-fleet-api-openapi.yml
