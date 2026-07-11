@@ -73,6 +73,10 @@ apis:
       - url: rules/tesla-energy-rules.yml
         type: SpectralRules
 common:
+  - type: Authentication
+    url: authentication/tesla-energy-authentication.yml
+  - type: OAuthScopes
+    url: scopes/tesla-energy-scopes.yml
   - type: Portal
     url: https://www.tesla.com/energy
   - type: Portal
