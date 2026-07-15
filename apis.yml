@@ -73,6 +73,8 @@ apis:
       - url: rules/tesla-energy-rules.yml
         type: SpectralRules
 common:
+  - type: AgenticAccess
+    url: agentic-access/tesla-energy-agentic-access.yml
   - type: DomainSecurity
     url: security/tesla-energy-domain-security.yml
   - type: Authentication
