@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: Tesla Fleet Energy Backup Live Status API
+  description: 'The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read
+
+    Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
+
+    and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
+
+    time-of-use settings, and off-grid vehicle charging reserve.
+
+
+    Authentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and
+
+    energy_cmds (write) scopes. Third-party applications must register a partner account on the
+
+    Tesla Developer Portal and pair a virtual key with the owner''s account.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Tesla Developer Support
+    url: https://developer.tesla.com/docs/fleet-api/support/contact
+  license:
+    name: Tesla Developer Terms
+    url: https://developer.tesla.com/teslaplatform/developerterms
+servers:
+- url: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  description: North America Production
+- url: https://fleet-api.prd.eu.vn.cloud.tesla.com/api/1
+  description: Europe / Middle East / Africa Production
+security:
+- BearerAuth:
+  - energy_device_data
+  - energy_cmds
+tags:
+- name: Live Status
+  description: Real-time power, state-of-charge, and grid status for an energy site
+paths:
+  /energy_sites/{site_id}/live_status:
+    get:
+      summary: Tesla Get Energy Site Live Status
+      description: Returns real-time power flow at the energy site — solar production, battery charge/discharge, grid import/export, and home/load consumption — plus state-of-charge, grid status, storm-mode active flag, and timestamp.
+      operationId: getEnergySiteLiveStatus
+      tags:
+      - Live Status
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveStatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    LiveStatusResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/LiveStatus'
+    LiveStatus:
+      type: object
+      properties:
+        solar_power:
+          type: number
+          description: Instantaneous solar generation in watts.
+        battery_power:
+          type: number
+          description: Instantaneous battery power in watts. Positive = discharging.
+        grid_power:
+          type: number
+          description: Instantaneous grid power in watts. Positive = import.
+        load_power:
+          type: number
+          description: Instantaneous home load in watts.
+        percentage_charged:
+          type: number
+          description: Battery state-of-charge as a percent 0-100.
+        energy_left:
+          type: number
+          description: Battery energy remaining in watt-hours.
+        total_pack_energy:
+          type: number
+          description: Total Powerwall pack energy capacity in watt-hours.
+        grid_status:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - Unknown
+        backup_capable:
+          type: boolean
+        storm_mode_active:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Energy site not found or not accessible by this account.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: oauth2
+      description: Tesla Fleet API OAuth 2.0 with PKCE. Scopes energy_device_data (read) and energy_cmds (write) required for the energy_sites endpoints.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tesla.com/oauth2/v3/authorize
+          tokenUrl: https://auth.tesla.com/oauth2/v3/token
+          scopes:
+            energy_device_data: Read energy site data
+            energy_cmds: Send commands to energy sites
+            offline_access: Refresh tokens

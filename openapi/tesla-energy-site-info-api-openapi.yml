@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  title: Tesla Fleet Energy Backup Site Info API
+  description: 'The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read
+
+    Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
+
+    and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
+
+    time-of-use settings, and off-grid vehicle charging reserve.
+
+
+    Authentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and
+
+    energy_cmds (write) scopes. Third-party applications must register a partner account on the
+
+    Tesla Developer Portal and pair a virtual key with the owner''s account.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Tesla Developer Support
+    url: https://developer.tesla.com/docs/fleet-api/support/contact
+  license:
+    name: Tesla Developer Terms
+    url: https://developer.tesla.com/teslaplatform/developerterms
+servers:
+- url: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  description: North America Production
+- url: https://fleet-api.prd.eu.vn.cloud.tesla.com/api/1
+  description: Europe / Middle East / Africa Production
+security:
+- BearerAuth:
+  - energy_device_data
+  - energy_cmds
+tags:
+- name: Site Info
+  description: Static configuration of an energy site (components, address, time zone)
+paths:
+  /energy_sites/{site_id}/site_info:
+    get:
+      summary: Tesla Get Energy Site Info
+      description: Returns static configuration of the energy site — components installed (Powerwall, Solar, Megapack), address, time zone, version, asset registration metadata, and gateway identifiers.
+      operationId: getEnergySiteInfo
+      tags:
+      - Site Info
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteInfoResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+    SiteInfoResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/SiteInfo'
+    SiteComponent:
+      type: object
+      properties:
+        battery:
+          type: boolean
+        solar:
+          type: boolean
+        solar_type:
+          type: string
+        grid:
+          type: boolean
+        grid_services:
+          type: boolean
+        storm_mode_capable:
+          type: boolean
+        backup_time_remaining_enabled:
+          type: boolean
+        off_grid_vehicle_charging_reserve_supported:
+          type: boolean
+    SiteInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        site_name:
+          type: string
+        backup_reserve_percent:
+          type: integer
+        default_real_mode:
+          type: string
+        installation_date:
+          type: string
+          format: date-time
+        installation_time_zone:
+          type: string
+        version:
+          type: string
+        battery_count:
+          type: integer
+        nameplate_power:
+          type: number
+        nameplate_energy:
+          type: number
+        components:
+          $ref: '#/components/schemas/SiteComponent'
+        address:
+          type: object
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+            country:
+              type: string
+        user_settings:
+          type: object
+          properties:
+            storm_mode_enabled:
+              type: boolean
+            powerwall_onboarding_settings_set:
+              type: boolean
+            sync_grid_alert_enabled:
+              type: boolean
+            breaker_alert_enabled:
+              type: boolean
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Energy site not found or not accessible by this account.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: oauth2
+      description: Tesla Fleet API OAuth 2.0 with PKCE. Scopes energy_device_data (read) and energy_cmds (write) required for the energy_sites endpoints.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tesla.com/oauth2/v3/authorize
+          tokenUrl: https://auth.tesla.com/oauth2/v3/token
+          scopes:
+            energy_device_data: Read energy site data
+            energy_cmds: Send commands to energy sites
+            offline_access: Refresh tokens

@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: Tesla Fleet Energy Backup Off Grid Charging API
+  description: 'The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read
+
+    Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
+
+    and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
+
+    time-of-use settings, and off-grid vehicle charging reserve.
+
+
+    Authentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and
+
+    energy_cmds (write) scopes. Third-party applications must register a partner account on the
+
+    Tesla Developer Portal and pair a virtual key with the owner''s account.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Tesla Developer Support
+    url: https://developer.tesla.com/docs/fleet-api/support/contact
+  license:
+    name: Tesla Developer Terms
+    url: https://developer.tesla.com/teslaplatform/developerterms
+servers:
+- url: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  description: North America Production
+- url: https://fleet-api.prd.eu.vn.cloud.tesla.com/api/1
+  description: Europe / Middle East / Africa Production
+security:
+- BearerAuth:
+  - energy_device_data
+  - energy_cmds
+tags:
+- name: Off Grid Charging
+  description: Reserve threshold for EV charging when the site is islanded from the grid
+paths:
+  /energy_sites/{site_id}/off_grid_vehicle_charging_reserve:
+    post:
+      summary: Tesla Set Off-Grid Vehicle Charging Reserve
+      description: Sets the percent state-of-charge below which Powerwall will stop powering EV charging during a grid outage. Lets owners protect home loads while still allowing some vehicle charging when islanded.
+      operationId: setOffGridVehicleChargingReserve
+      tags:
+      - Off Grid Charging
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - off_grid_vehicle_charging_reserve_percent
+              properties:
+                off_grid_vehicle_charging_reserve_percent:
+                  type: integer
+                  minimum: 0
+                  maximum: 100
+      responses:
+        '200':
+          $ref: '#/components/responses/CommandResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    CommandResult:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+            result:
+              type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CommandResult:
+      description: Command accepted by the site.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommandResult'
+    Forbidden:
+      description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: oauth2
+      description: Tesla Fleet API OAuth 2.0 with PKCE. Scopes energy_device_data (read) and energy_cmds (write) required for the energy_sites endpoints.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tesla.com/oauth2/v3/authorize
+          tokenUrl: https://auth.tesla.com/oauth2/v3/token
+          scopes:
+            energy_device_data: Read energy site data
+            energy_cmds: Send commands to energy sites
+            offline_access: Refresh tokens
