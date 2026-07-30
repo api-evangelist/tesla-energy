@@ -8,6 +8,19 @@ description: >-
   (self_consumption, backup, autonomous), storm mode, time-of-use settings, and off-grid vehicle charging reserve — the
   same control surface that powers the Tesla app and integrators like Autobidder, Tesla Electric (virtual power plant),
   and third-party home energy dashboards.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.tesla.com/favicon.ico
 tags:
   - Energy
@@ -29,50 +42,309 @@ created: '2026-05-25'
 modified: '2026-05-25'
 position: Producing
 apis:
-  - aid: tesla-energy:fleet-energy-api
-    name: Tesla Fleet Energy API
-    description: >-
-      The energy_sites surface of the Tesla Fleet API. Provides OAuth-authenticated read access to Powerwall, Solar, and
-      Megapack site state — site info, live status, calendar history, programs — and write access to backup reserve,
-      operation mode, storm mode, time-of-use settings, and off-grid vehicle charging reserve. Requires
-      energy_device_data (read) and energy_cmds (write) scopes.
-    humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
-    baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
-    tags:
-      - Energy
-      - Powerwall
-      - Solar
-      - Megapack
-      - Fleet API
-      - Energy Sites
-      - Backup Reserve
-      - Storm Mode
-      - Time Of Use
-      - Virtual Power Plant
-    properties:
-      - url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
-        type: Documentation
-      - url: https://developer.tesla.com/docs/fleet-api/authentication/overview
-        type: Authentication
-      - url: https://developer.tesla.com/docs/fleet-api/products/energy-products
-        type: Documentation
-      - url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
-        type: Documentation
-      - url: openapi/tesla-energy-fleet-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/tesla-energy-site-schema.json
-        type: JSONSchema
-      - url: json-schema/tesla-energy-live-status-schema.json
-        type: JSONSchema
-      - url: json-ld/tesla-energy-context.jsonld
-        type: JSONLD
-      - url: examples/tesla-energy-live-status-example.json
-        type: Examples
-      - url: examples/tesla-energy-site-info-example.json
-        type: Examples
-      - url: rules/tesla-energy-rules.yml
-        type: SpectralRules
+- aid: tesla-energy:tesla-energy-backup-api
+  name: Tesla Energy Backup API
+  description: Backup reserve threshold for Powerwall sites
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Backup
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-backup-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-history-api
+  name: Tesla Energy History API
+  description: Historical energy production, consumption, and battery flow
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - History
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-history-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-live-status-api
+  name: Tesla Energy Live Status API
+  description: Real-time power, state-of-charge, and grid status for an energy site
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Live Status
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-live-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-off-grid-charging-api
+  name: Tesla Energy Off Grid Charging API
+  description: Reserve threshold for EV charging when the site is islanded from the grid
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Off Grid Charging
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-off-grid-charging-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-operation-api
+  name: Tesla Energy Operation API
+  description: Operation mode — self_consumption, backup, or autonomous
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Operation
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-operation-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-products-api
+  name: Tesla Energy Products API
+  description: Discover energy_sites and other products owned by the authenticated account
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-products-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-programs-api
+  name: Tesla Energy Programs API
+  description: Virtual power plant and grid-services program participation
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Programs
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-programs-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-site-info-api
+  name: Tesla Energy Site Info API
+  description: Static configuration of an energy site (components, address, time zone)
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Site Info
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-site-info-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-storm-mode-api
+  name: Tesla Energy Storm Mode API
+  description: Pre-charge Powerwall to 100% ahead of severe weather alerts
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Storm Mode
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-storm-mode-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
+- aid: tesla-energy:tesla-energy-time-of-use-api
+  name: Tesla Energy Time Of Use API
+  description: Tariff schedule, peak/off-peak rate plans, and TOU optimization
+  humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+  tags:
+  - Time Of Use
+  properties:
+  - type: OpenAPI
+    url: openapi/tesla-energy-time-of-use-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/endpoints/energy
+  - type: Authentication
+    url: https://developer.tesla.com/docs/fleet-api/authentication/overview
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/products/energy-products
+  - type: Documentation
+    url: https://developer.tesla.com/docs/fleet-api/virtual-key/overview
+  - type: JSONSchema
+    url: json-schema/tesla-energy-site-schema.json
+  - type: JSONSchema
+    url: json-schema/tesla-energy-live-status-schema.json
+  - type: JSONLD
+    url: json-ld/tesla-energy-context.jsonld
+  - type: Examples
+    url: examples/tesla-energy-live-status-example.json
+  - type: Examples
+    url: examples/tesla-energy-site-info-example.json
+  - type: SpectralRules
+    url: rules/tesla-energy-rules.yml
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/tesla-energy/overview
   - type: AgenticAccess
     url: agentic-access/tesla-energy-agentic-access.yml
   - type: DomainSecurity
