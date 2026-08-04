@@ -1,0 +1,316 @@
+{
+  "info": {
+    "_postman_id": "f28ad3dd-5f76-4364-ab76-0ebc202e76c3",
+    "name": "Tesla Fleet Energy Backup Time Of Use API",
+    "description": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state \u2014 site info, live status, calendar history, programs \u2014\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:34.000Z",
+    "updatedAt": "2026-07-28T03:10:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f28ad3dd-5f76-4364-ab76-0ebc202e76c3"
+  },
+  "item": [
+    {
+      "name": "energy_sites",
+      "item": [
+        {
+          "name": "{site_id}",
+          "item": [
+            {
+              "name": "time_of_use_settings",
+              "item": [
+                {
+                  "name": "Tesla Set Time Of Use Settings",
+                  "id": "dc1150aa-c2bc-47d2-a1de-7151caae0bc4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"economics\",\n    \"schedule\": [\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/energy_sites/:site_id/time_of_use_settings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "energy_sites",
+                        ":site_id",
+                        "time_of_use_settings"
+                      ],
+                      "variable": [
+                        {
+                          "id": "97100bf3-16f0-4803-9e26-b672910dcbde",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) The energy_site_id returned by /products."
+                        }
+                      ]
+                    },
+                    "description": "Updates the time-of-use tariff schedule for the site, including peak/off-peak windows, seasonal rates, and self-consumption optimization toggles."
+                  },
+                  "response": [
+                    {
+                      "id": "d9de411c-6d24-4920-a15b-33421bbaba55",
+                      "name": "Command accepted by the site.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"economics\",\n    \"schedule\": [\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/time_of_use_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "time_of_use_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"response\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"result\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:10:34.000Z",
+                      "updatedAt": "2026-07-28T03:10:34.000Z",
+                      "uid": "35240-d9de411c-6d24-4920-a15b-33421bbaba55"
+                    },
+                    {
+                      "id": "dcb9d35f-8fce-4fe3-a35e-b22bb89f69a1",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"economics\",\n    \"schedule\": [\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/time_of_use_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "time_of_use_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:34.000Z",
+                      "updatedAt": "2026-07-28T03:10:34.000Z",
+                      "uid": "35240-dcb9d35f-8fce-4fe3-a35e-b22bb89f69a1"
+                    },
+                    {
+                      "id": "81743a66-94ae-4d5c-8944-82d986cd960e",
+                      "name": "Token is valid but lacks the required scope (e.g., energy_cmds for writes).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"economics\",\n    \"schedule\": [\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"partial_peak\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/time_of_use_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "time_of_use_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:34.000Z",
+                      "updatedAt": "2026-07-28T03:10:34.000Z",
+                      "uid": "35240-81743a66-94ae-4d5c-8944-82d986cd960e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:10:34.000Z",
+                  "updatedAt": "2026-07-28T03:10:34.000Z",
+                  "uid": "35240-dc1150aa-c2bc-47d2-a1de-7151caae0bc4"
+                }
+              ],
+              "id": "8bc45584-c50a-42a2-a39e-55f62a7bc9bd",
+              "createdAt": "2026-07-28T03:10:34.000Z",
+              "updatedAt": "2026-07-28T03:10:34.000Z",
+              "uid": "35240-8bc45584-c50a-42a2-a39e-55f62a7bc9bd"
+            }
+          ],
+          "id": "b84bc74d-c35d-45c0-8846-c99abf30c541",
+          "createdAt": "2026-07-28T03:10:34.000Z",
+          "updatedAt": "2026-07-28T03:10:34.000Z",
+          "uid": "35240-b84bc74d-c35d-45c0-8846-c99abf30c541"
+        }
+      ],
+      "id": "cc774675-4ebf-4f80-bc06-163d5ec53fee",
+      "createdAt": "2026-07-28T03:10:34.000Z",
+      "updatedAt": "2026-07-28T03:10:34.000Z",
+      "uid": "35240-cc774675-4ebf-4f80-bc06-163d5ec53fee"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1"
+    }
+  ]
+}

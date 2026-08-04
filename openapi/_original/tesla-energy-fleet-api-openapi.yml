@@ -1,0 +1,648 @@
+openapi: 3.1.0
+info:
+  title: Tesla Fleet Energy API
+  description: |
+    The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read
+    Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
+    and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
+    time-of-use settings, and off-grid vehicle charging reserve.
+
+    Authentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and
+    energy_cmds (write) scopes. Third-party applications must register a partner account on the
+    Tesla Developer Portal and pair a virtual key with the owner's account.
+  version: "1.0.0"
+  contact:
+    name: Tesla Developer Support
+    url: https://developer.tesla.com/docs/fleet-api/support/contact
+  license:
+    name: Tesla Developer Terms
+    url: https://developer.tesla.com/teslaplatform/developerterms
+servers:
+  - url: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
+    description: North America Production
+  - url: https://fleet-api.prd.eu.vn.cloud.tesla.com/api/1
+    description: Europe / Middle East / Africa Production
+security:
+  - BearerAuth:
+      - energy_device_data
+      - energy_cmds
+
+tags:
+  - name: Products
+    description: Discover energy_sites and other products owned by the authenticated account
+  - name: Site Info
+    description: Static configuration of an energy site (components, address, time zone)
+  - name: Live Status
+    description: Real-time power, state-of-charge, and grid status for an energy site
+  - name: History
+    description: Historical energy production, consumption, and battery flow
+  - name: Backup
+    description: Backup reserve threshold for Powerwall sites
+  - name: Operation
+    description: Operation mode — self_consumption, backup, or autonomous
+  - name: Storm Mode
+    description: Pre-charge Powerwall to 100% ahead of severe weather alerts
+  - name: Time Of Use
+    description: Tariff schedule, peak/off-peak rate plans, and TOU optimization
+  - name: Off Grid Charging
+    description: Reserve threshold for EV charging when the site is islanded from the grid
+  - name: Programs
+    description: Virtual power plant and grid-services program participation
+
+paths:
+  /products:
+    get:
+      summary: Tesla List Products
+      description: Returns a list of products (vehicles and energy_sites) that the authenticated user has access to. Energy sites are identified by an `energy_site_id` and may include Powerwall, Solar, and Megapack assets.
+      operationId: listProducts
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+
+  /energy_sites/{site_id}/site_info:
+    get:
+      summary: Tesla Get Energy Site Info
+      description: Returns static configuration of the energy site — components installed (Powerwall, Solar, Megapack), address, time zone, version, asset registration metadata, and gateway identifiers.
+      operationId: getEnergySiteInfo
+      tags:
+        - Site Info
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteInfoResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /energy_sites/{site_id}/live_status:
+    get:
+      summary: Tesla Get Energy Site Live Status
+      description: Returns real-time power flow at the energy site — solar production, battery charge/discharge, grid import/export, and home/load consumption — plus state-of-charge, grid status, storm-mode active flag, and timestamp.
+      operationId: getEnergySiteLiveStatus
+      tags:
+        - Live Status
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveStatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /energy_sites/{site_id}/calendar_history:
+    get:
+      summary: Tesla Get Energy Site Calendar History
+      description: Returns time-series energy data — production, consumption, grid import/export, battery charge/discharge — aggregated by day, week, month, or year. Supports kind=energy, power, self_consumption, savings, and time_of_use.
+      operationId: getEnergySiteCalendarHistory
+      tags:
+        - History
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - name: kind
+          in: query
+          required: true
+          description: Type of history to retrieve.
+          schema:
+            type: string
+            enum: [energy, power, self_consumption, savings, time_of_use]
+        - name: period
+          in: query
+          required: false
+          description: Aggregation period.
+          schema:
+            type: string
+            enum: [day, week, month, year, lifetime]
+        - name: end_date
+          in: query
+          required: false
+          description: ISO-8601 end of the window.
+          schema:
+            type: string
+            format: date-time
+        - name: time_zone
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarHistoryResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /energy_sites/{site_id}/backup:
+    post:
+      summary: Tesla Set Backup Reserve Percent
+      description: Sets the percent state-of-charge that Powerwall holds in reserve for grid outages. Range 0-100. Requires the energy_cmds scope.
+      operationId: setBackupReservePercent
+      tags:
+        - Backup
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [backup_reserve_percent]
+              properties:
+                backup_reserve_percent:
+                  type: integer
+                  minimum: 0
+                  maximum: 100
+                  description: Reserve percent to hold for outage backup.
+      responses:
+        '200':
+          $ref: '#/components/responses/CommandResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /energy_sites/{site_id}/operation:
+    post:
+      summary: Tesla Set Site Operation Mode
+      description: Sets the Powerwall operation mode. `self_consumption` prioritizes using stored solar on-site; `backup` reserves battery for outages; `autonomous` lets Tesla optimize against rates and grid conditions.
+      operationId: setSiteOperation
+      tags:
+        - Operation
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [default_real_mode]
+              properties:
+                default_real_mode:
+                  type: string
+                  enum: [self_consumption, backup, autonomous]
+                  description: Operation mode the site should run in.
+      responses:
+        '200':
+          $ref: '#/components/responses/CommandResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /energy_sites/{site_id}/storm_mode:
+    post:
+      summary: Tesla Set Storm Mode
+      description: Enables or disables Storm Mode. When enabled, Powerwall automatically pre-charges to 100% ahead of severe weather alerts in the site's region.
+      operationId: setStormMode
+      tags:
+        - Storm Mode
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [enabled]
+              properties:
+                enabled:
+                  type: boolean
+                  description: Whether Storm Mode is active.
+      responses:
+        '200':
+          $ref: '#/components/responses/CommandResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /energy_sites/{site_id}/time_of_use_settings:
+    post:
+      summary: Tesla Set Time Of Use Settings
+      description: Updates the time-of-use tariff schedule for the site, including peak/off-peak windows, seasonal rates, and self-consumption optimization toggles.
+      operationId: setTimeOfUseSettings
+      tags:
+        - Time Of Use
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeOfUseSettings'
+      responses:
+        '200':
+          $ref: '#/components/responses/CommandResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /energy_sites/{site_id}/off_grid_vehicle_charging_reserve:
+    post:
+      summary: Tesla Set Off-Grid Vehicle Charging Reserve
+      description: Sets the percent state-of-charge below which Powerwall will stop powering EV charging during a grid outage. Lets owners protect home loads while still allowing some vehicle charging when islanded.
+      operationId: setOffGridVehicleChargingReserve
+      tags:
+        - Off Grid Charging
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [off_grid_vehicle_charging_reserve_percent]
+              properties:
+                off_grid_vehicle_charging_reserve_percent:
+                  type: integer
+                  minimum: 0
+                  maximum: 100
+      responses:
+        '200':
+          $ref: '#/components/responses/CommandResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /energy_sites/{site_id}/programs:
+    get:
+      summary: Tesla Get Energy Site Programs
+      description: Returns virtual power plant and grid-services programs the site is eligible for and currently enrolled in (e.g., regional VPP, demand response).
+      operationId: getEnergySitePrograms
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: oauth2
+      description: Tesla Fleet API OAuth 2.0 with PKCE. Scopes energy_device_data (read) and energy_cmds (write) required for the energy_sites endpoints.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tesla.com/oauth2/v3/authorize
+          tokenUrl: https://auth.tesla.com/oauth2/v3/token
+          scopes:
+            energy_device_data: Read energy site data
+            energy_cmds: Send commands to energy sites
+            offline_access: Refresh tokens
+
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Energy site not found or not accessible by this account.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CommandResult:
+      description: Command accepted by the site.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommandResult'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+
+    CommandResult:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+            result:
+              type: boolean
+
+    Product:
+      type: object
+      properties:
+        energy_site_id:
+          type: integer
+          format: int64
+        site_name:
+          type: string
+        resource_type:
+          type: string
+          enum: [battery, solar]
+        id:
+          type: string
+        asset_site_id:
+          type: string
+        gateway_id:
+          type: string
+        energy_left:
+          type: number
+        total_pack_energy:
+          type: number
+        percentage_charged:
+          type: number
+        battery_type:
+          type: string
+
+    ProductsResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        count:
+          type: integer
+
+    SiteComponent:
+      type: object
+      properties:
+        battery:
+          type: boolean
+        solar:
+          type: boolean
+        solar_type:
+          type: string
+        grid:
+          type: boolean
+        grid_services:
+          type: boolean
+        storm_mode_capable:
+          type: boolean
+        backup_time_remaining_enabled:
+          type: boolean
+        off_grid_vehicle_charging_reserve_supported:
+          type: boolean
+
+    SiteInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        site_name:
+          type: string
+        backup_reserve_percent:
+          type: integer
+        default_real_mode:
+          type: string
+        installation_date:
+          type: string
+          format: date-time
+        installation_time_zone:
+          type: string
+        version:
+          type: string
+        battery_count:
+          type: integer
+        nameplate_power:
+          type: number
+        nameplate_energy:
+          type: number
+        components:
+          $ref: '#/components/schemas/SiteComponent'
+        address:
+          type: object
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+            country:
+              type: string
+        user_settings:
+          type: object
+          properties:
+            storm_mode_enabled:
+              type: boolean
+            powerwall_onboarding_settings_set:
+              type: boolean
+            sync_grid_alert_enabled:
+              type: boolean
+            breaker_alert_enabled:
+              type: boolean
+
+    SiteInfoResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/SiteInfo'
+
+    LiveStatus:
+      type: object
+      properties:
+        solar_power:
+          type: number
+          description: Instantaneous solar generation in watts.
+        battery_power:
+          type: number
+          description: Instantaneous battery power in watts. Positive = discharging.
+        grid_power:
+          type: number
+          description: Instantaneous grid power in watts. Positive = import.
+        load_power:
+          type: number
+          description: Instantaneous home load in watts.
+        percentage_charged:
+          type: number
+          description: Battery state-of-charge as a percent 0-100.
+        energy_left:
+          type: number
+          description: Battery energy remaining in watt-hours.
+        total_pack_energy:
+          type: number
+          description: Total Powerwall pack energy capacity in watt-hours.
+        grid_status:
+          type: string
+          enum: [Active, Inactive, Unknown]
+        backup_capable:
+          type: boolean
+        storm_mode_active:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+
+    LiveStatusResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/LiveStatus'
+
+    CalendarHistoryBucket:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        solar_energy_exported:
+          type: number
+        generator_energy_exported:
+          type: number
+        grid_energy_imported:
+          type: number
+        grid_services_energy_imported:
+          type: number
+        grid_services_energy_exported:
+          type: number
+        grid_energy_exported_from_solar:
+          type: number
+        grid_energy_exported_from_generator:
+          type: number
+        grid_energy_exported_from_battery:
+          type: number
+        battery_energy_exported:
+          type: number
+        battery_energy_imported_from_grid:
+          type: number
+        battery_energy_imported_from_solar:
+          type: number
+        battery_energy_imported_from_generator:
+          type: number
+        consumer_energy_imported_from_grid:
+          type: number
+        consumer_energy_imported_from_solar:
+          type: number
+        consumer_energy_imported_from_battery:
+          type: number
+        consumer_energy_imported_from_generator:
+          type: number
+
+    CalendarHistoryResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            serial_number:
+              type: string
+            period:
+              type: string
+            installation_time_zone:
+              type: string
+            time_series:
+              type: array
+              items:
+                $ref: '#/components/schemas/CalendarHistoryBucket'
+
+    TimeOfUseSettings:
+      type: object
+      properties:
+        tou_settings:
+          type: object
+          properties:
+            optimization_strategy:
+              type: string
+              enum: [economics, balanced]
+            schedule:
+              type: array
+              items:
+                type: object
+                properties:
+                  target:
+                    type: string
+                    enum: [peak, off_peak, partial_peak, super_off_peak]
+                  week_days:
+                    type: array
+                    items:
+                      type: integer
+                      minimum: 0
+                      maximum: 6
+                  start_seconds:
+                    type: integer
+                  end_seconds:
+                    type: integer
+
+    Program:
+      type: object
+      properties:
+        name:
+          type: string
+        enrolled:
+          type: boolean
+        eligibility_status:
+          type: string
+
+    ProgramsResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Program'

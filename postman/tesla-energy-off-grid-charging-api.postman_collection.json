@@ -1,0 +1,316 @@
+{
+  "info": {
+    "_postman_id": "f4f0ac28-7a13-45d4-8035-2e729e3390ff",
+    "name": "Tesla Fleet Energy Backup Off Grid Charging API",
+    "description": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state \u2014 site info, live status, calendar history, programs \u2014\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:23.000Z",
+    "updatedAt": "2026-07-28T03:10:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f4f0ac28-7a13-45d4-8035-2e729e3390ff"
+  },
+  "item": [
+    {
+      "name": "energy_sites",
+      "item": [
+        {
+          "name": "{site_id}",
+          "item": [
+            {
+              "name": "off_grid_vehicle_charging_reserve",
+              "item": [
+                {
+                  "name": "Tesla Set Off-Grid Vehicle Charging Reserve",
+                  "id": "356e17e1-8655-42f8-b830-8e549d75dfde",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"off_grid_vehicle_charging_reserve_percent\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/energy_sites/:site_id/off_grid_vehicle_charging_reserve",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "energy_sites",
+                        ":site_id",
+                        "off_grid_vehicle_charging_reserve"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2180fe92-3fa8-4404-88e8-39aa7a731fc0",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) The energy_site_id returned by /products."
+                        }
+                      ]
+                    },
+                    "description": "Sets the percent state-of-charge below which Powerwall will stop powering EV charging during a grid outage. Lets owners protect home loads while still allowing some vehicle charging when islanded."
+                  },
+                  "response": [
+                    {
+                      "id": "a616357b-24ec-49b8-badd-2d9ca0fdcbf5",
+                      "name": "Command accepted by the site.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"off_grid_vehicle_charging_reserve_percent\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/off_grid_vehicle_charging_reserve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "off_grid_vehicle_charging_reserve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"response\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"result\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:10:24.000Z",
+                      "updatedAt": "2026-07-28T03:10:24.000Z",
+                      "uid": "35240-a616357b-24ec-49b8-badd-2d9ca0fdcbf5"
+                    },
+                    {
+                      "id": "d5bd3153-e831-4553-838a-495cf2e72279",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"off_grid_vehicle_charging_reserve_percent\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/off_grid_vehicle_charging_reserve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "off_grid_vehicle_charging_reserve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:24.000Z",
+                      "updatedAt": "2026-07-28T03:10:24.000Z",
+                      "uid": "35240-d5bd3153-e831-4553-838a-495cf2e72279"
+                    },
+                    {
+                      "id": "25008283-1524-4d0f-ba48-9b82dd5e9f58",
+                      "name": "Token is valid but lacks the required scope (e.g., energy_cmds for writes).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"off_grid_vehicle_charging_reserve_percent\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/off_grid_vehicle_charging_reserve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "off_grid_vehicle_charging_reserve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:24.000Z",
+                      "updatedAt": "2026-07-28T03:10:24.000Z",
+                      "uid": "35240-25008283-1524-4d0f-ba48-9b82dd5e9f58"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:10:24.000Z",
+                  "updatedAt": "2026-07-28T03:10:24.000Z",
+                  "uid": "35240-356e17e1-8655-42f8-b830-8e549d75dfde"
+                }
+              ],
+              "id": "b7652a7e-8539-4476-ba63-43b850cd155b",
+              "createdAt": "2026-07-28T03:10:24.000Z",
+              "updatedAt": "2026-07-28T03:10:24.000Z",
+              "uid": "35240-b7652a7e-8539-4476-ba63-43b850cd155b"
+            }
+          ],
+          "id": "2b007d5e-496a-42fa-b6ec-dccf472a2f53",
+          "createdAt": "2026-07-28T03:10:24.000Z",
+          "updatedAt": "2026-07-28T03:10:24.000Z",
+          "uid": "35240-2b007d5e-496a-42fa-b6ec-dccf472a2f53"
+        }
+      ],
+      "id": "869361c6-04af-4099-9d3f-9aa0b0d86ad0",
+      "createdAt": "2026-07-28T03:10:24.000Z",
+      "updatedAt": "2026-07-28T03:10:24.000Z",
+      "uid": "35240-869361c6-04af-4099-9d3f-9aa0b0d86ad0"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1"
+    }
+  ]
+}

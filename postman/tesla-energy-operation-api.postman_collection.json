@@ -1,0 +1,316 @@
+{
+  "info": {
+    "_postman_id": "5eae02e5-482a-4fdc-a2ef-997a8521115b",
+    "name": "Tesla Fleet Energy Backup Operation API",
+    "description": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state \u2014 site info, live status, calendar history, programs \u2014\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:24.000Z",
+    "updatedAt": "2026-07-28T03:10:24.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5eae02e5-482a-4fdc-a2ef-997a8521115b"
+  },
+  "item": [
+    {
+      "name": "energy_sites",
+      "item": [
+        {
+          "name": "{site_id}",
+          "item": [
+            {
+              "name": "operation",
+              "item": [
+                {
+                  "name": "Tesla Set Site Operation Mode",
+                  "id": "738afd2e-7e10-41b4-ab2b-06b8ae73520f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"default_real_mode\": \"backup\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/energy_sites/:site_id/operation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "energy_sites",
+                        ":site_id",
+                        "operation"
+                      ],
+                      "variable": [
+                        {
+                          "id": "18fb262c-a32f-4b61-9b7d-eed662289f6c",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) The energy_site_id returned by /products."
+                        }
+                      ]
+                    },
+                    "description": "Sets the Powerwall operation mode. `self_consumption` prioritizes using stored solar on-site; `backup` reserves battery for outages; `autonomous` lets Tesla optimize against rates and grid conditions."
+                  },
+                  "response": [
+                    {
+                      "id": "9f447753-7dd2-4649-963b-3522911dc334",
+                      "name": "Command accepted by the site.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"default_real_mode\": \"backup\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/operation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "operation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"response\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"result\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:10:25.000Z",
+                      "updatedAt": "2026-07-28T03:10:25.000Z",
+                      "uid": "35240-9f447753-7dd2-4649-963b-3522911dc334"
+                    },
+                    {
+                      "id": "0bef9fa5-ae9d-4608-83be-d394cce3662b",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"default_real_mode\": \"backup\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/operation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "operation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:25.000Z",
+                      "updatedAt": "2026-07-28T03:10:25.000Z",
+                      "uid": "35240-0bef9fa5-ae9d-4608-83be-d394cce3662b"
+                    },
+                    {
+                      "id": "e6baac5f-60c2-4ace-ad42-1618f92c289f",
+                      "name": "Token is valid but lacks the required scope (e.g., energy_cmds for writes).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"default_real_mode\": \"backup\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/operation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "operation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:25.000Z",
+                      "updatedAt": "2026-07-28T03:10:25.000Z",
+                      "uid": "35240-e6baac5f-60c2-4ace-ad42-1618f92c289f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:10:25.000Z",
+                  "updatedAt": "2026-07-28T03:10:25.000Z",
+                  "uid": "35240-738afd2e-7e10-41b4-ab2b-06b8ae73520f"
+                }
+              ],
+              "id": "3513ce8e-01b4-4b0a-bcdb-701e2c436a14",
+              "createdAt": "2026-07-28T03:10:25.000Z",
+              "updatedAt": "2026-07-28T03:10:25.000Z",
+              "uid": "35240-3513ce8e-01b4-4b0a-bcdb-701e2c436a14"
+            }
+          ],
+          "id": "a4377892-64c4-42c1-8e9f-b02080ca100b",
+          "createdAt": "2026-07-28T03:10:25.000Z",
+          "updatedAt": "2026-07-28T03:10:25.000Z",
+          "uid": "35240-a4377892-64c4-42c1-8e9f-b02080ca100b"
+        }
+      ],
+      "id": "eb95a842-63c4-41c5-a5ee-f0571c398a15",
+      "createdAt": "2026-07-28T03:10:25.000Z",
+      "updatedAt": "2026-07-28T03:10:25.000Z",
+      "uid": "35240-eb95a842-63c4-41c5-a5ee-f0571c398a15"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1"
+    }
+  ]
+}

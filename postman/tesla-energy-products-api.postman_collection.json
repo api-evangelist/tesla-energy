@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "73f49c00-08bb-4662-ae0f-919884095b95",
+    "name": "Tesla Fleet Energy Backup Products API",
+    "description": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state \u2014 site info, live status, calendar history, programs \u2014\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:25.000Z",
+    "updatedAt": "2026-07-28T03:10:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-73f49c00-08bb-4662-ae0f-919884095b95"
+  },
+  "item": [
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "Tesla List Products",
+          "id": "94416cf9-3888-4e9c-8d09-472b4e11f5b9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Returns a list of products (vehicles and energy_sites) that the authenticated user has access to. Energy sites are identified by an `energy_site_id` and may include Powerwall, Solar, and Megapack assets."
+          },
+          "response": [
+            {
+              "id": "30127f9d-8661-4b4a-99a6-1c4b4b8d7524",
+              "name": "Successful Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"response\": [\n    {\n      \"energy_site_id\": \"<long>\",\n      \"site_name\": \"<string>\",\n      \"resource_type\": \"solar\",\n      \"id\": \"<string>\",\n      \"asset_site_id\": \"<string>\",\n      \"gateway_id\": \"<string>\",\n      \"energy_left\": \"<number>\",\n      \"total_pack_energy\": \"<number>\",\n      \"percentage_charged\": \"<number>\",\n      \"battery_type\": \"<string>\"\n    },\n    {\n      \"energy_site_id\": \"<long>\",\n      \"site_name\": \"<string>\",\n      \"resource_type\": \"solar\",\n      \"id\": \"<string>\",\n      \"asset_site_id\": \"<string>\",\n      \"gateway_id\": \"<string>\",\n      \"energy_left\": \"<number>\",\n      \"total_pack_energy\": \"<number>\",\n      \"percentage_charged\": \"<number>\",\n      \"battery_type\": \"<string>\"\n    }\n  ],\n  \"count\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T03:10:26.000Z",
+              "updatedAt": "2026-07-28T03:10:26.000Z",
+              "uid": "35240-30127f9d-8661-4b4a-99a6-1c4b4b8d7524"
+            },
+            {
+              "id": "eaf4c477-e809-4e31-9cd8-ab64e2eed754",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:10:26.000Z",
+              "updatedAt": "2026-07-28T03:10:26.000Z",
+              "uid": "35240-eaf4c477-e809-4e31-9cd8-ab64e2eed754"
+            },
+            {
+              "id": "01075339-7292-4fd6-ae15-2c33663f6422",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:10:26.000Z",
+              "updatedAt": "2026-07-28T03:10:26.000Z",
+              "uid": "35240-01075339-7292-4fd6-ae15-2c33663f6422"
+            }
+          ],
+          "createdAt": "2026-07-28T03:10:26.000Z",
+          "updatedAt": "2026-07-28T03:10:26.000Z",
+          "uid": "35240-94416cf9-3888-4e9c-8d09-472b4e11f5b9"
+        }
+      ],
+      "id": "32a797ef-0c00-44c3-8b2d-12c6edeffa79",
+      "createdAt": "2026-07-28T03:10:26.000Z",
+      "updatedAt": "2026-07-28T03:10:26.000Z",
+      "uid": "35240-32a797ef-0c00-44c3-8b2d-12c6edeffa79"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1"
+    }
+  ]
+}

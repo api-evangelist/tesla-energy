@@ -1,0 +1,32 @@
+{
+  "provider": "tesla-energy",
+  "sources": [
+    "tesla-energy-backup-api-openapi.yml",
+    "tesla-energy-history-api-openapi.yml",
+    "tesla-energy-live-status-api-openapi.yml",
+    "tesla-energy-off-grid-charging-api-openapi.yml",
+    "tesla-energy-operation-api-openapi.yml",
+    "tesla-energy-products-api-openapi.yml",
+    "tesla-energy-programs-api-openapi.yml",
+    "tesla-energy-site-info-api-openapi.yml",
+    "tesla-energy-storm-mode-api-openapi.yml",
+    "tesla-energy-time-of-use-api-openapi.yml"
+  ],
+  "outputs": [
+    "tesla-energy-backup-api-openapi.yml",
+    "tesla-energy-history-api-openapi.yml",
+    "tesla-energy-live-status-api-openapi.yml",
+    "tesla-energy-off-grid-charging-api-openapi.yml",
+    "tesla-energy-operation-api-openapi.yml",
+    "tesla-energy-products-api-openapi.yml",
+    "tesla-energy-programs-api-openapi.yml",
+    "tesla-energy-site-info-api-openapi.yml",
+    "tesla-energy-storm-mode-api-openapi.yml",
+    "tesla-energy-time-of-use-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

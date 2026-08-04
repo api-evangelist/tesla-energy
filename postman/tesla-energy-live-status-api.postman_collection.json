@@ -1,0 +1,260 @@
+{
+  "info": {
+    "_postman_id": "c839f1ce-c53b-4675-af24-f42b2635238a",
+    "name": "Tesla Fleet Energy Backup Live Status API",
+    "description": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state \u2014 site info, live status, calendar history, programs \u2014\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:10:22.000Z",
+    "updatedAt": "2026-07-28T03:10:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c839f1ce-c53b-4675-af24-f42b2635238a"
+  },
+  "item": [
+    {
+      "name": "energy_sites",
+      "item": [
+        {
+          "name": "{site_id}",
+          "item": [
+            {
+              "name": "live_status",
+              "item": [
+                {
+                  "name": "Tesla Get Energy Site Live Status",
+                  "id": "ea5ebcec-3f1b-4242-9366-8b8e83180f6d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/energy_sites/:site_id/live_status",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "energy_sites",
+                        ":site_id",
+                        "live_status"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cd2b502b-6b48-4fb9-a948-3f138031452e",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) The energy_site_id returned by /products."
+                        }
+                      ]
+                    },
+                    "description": "Returns real-time power flow at the energy site \u2014 solar production, battery charge/discharge, grid import/export, and home/load consumption \u2014 plus state-of-charge, grid status, storm-mode active flag, and timestamp."
+                  },
+                  "response": [
+                    {
+                      "id": "8e4a91ad-50d5-4d9e-bdb3-656a76e806c5",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/live_status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "live_status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"response\": {\n    \"solar_power\": \"<number>\",\n    \"battery_power\": \"<number>\",\n    \"grid_power\": \"<number>\",\n    \"load_power\": \"<number>\",\n    \"percentage_charged\": \"<number>\",\n    \"energy_left\": \"<number>\",\n    \"total_pack_energy\": \"<number>\",\n    \"grid_status\": \"Active\",\n    \"backup_capable\": \"<boolean>\",\n    \"storm_mode_active\": \"<boolean>\",\n    \"timestamp\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:10:23.000Z",
+                      "updatedAt": "2026-07-28T03:10:23.000Z",
+                      "uid": "35240-8e4a91ad-50d5-4d9e-bdb3-656a76e806c5"
+                    },
+                    {
+                      "id": "65923d80-59c4-4017-83e7-57f6a8012ee3",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/live_status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "live_status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:23.000Z",
+                      "updatedAt": "2026-07-28T03:10:23.000Z",
+                      "uid": "35240-65923d80-59c4-4017-83e7-57f6a8012ee3"
+                    },
+                    {
+                      "id": "e2861ee3-58b4-4fc5-81b8-b04d657dae2c",
+                      "name": "Energy site not found or not accessible by this account.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/energy_sites/:site_id/live_status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "energy_sites",
+                            ":site_id",
+                            "live_status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"error_description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:10:23.000Z",
+                      "updatedAt": "2026-07-28T03:10:23.000Z",
+                      "uid": "35240-e2861ee3-58b4-4fc5-81b8-b04d657dae2c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:10:23.000Z",
+                  "updatedAt": "2026-07-28T03:10:23.000Z",
+                  "uid": "35240-ea5ebcec-3f1b-4242-9366-8b8e83180f6d"
+                }
+              ],
+              "id": "5d03c1fb-1a49-4bbc-90cb-26205eeb9ccc",
+              "createdAt": "2026-07-28T03:10:23.000Z",
+              "updatedAt": "2026-07-28T03:10:23.000Z",
+              "uid": "35240-5d03c1fb-1a49-4bbc-90cb-26205eeb9ccc"
+            }
+          ],
+          "id": "cb43bb6e-e9e3-43aa-a3d1-94121d6b86cb",
+          "createdAt": "2026-07-28T03:10:23.000Z",
+          "updatedAt": "2026-07-28T03:10:23.000Z",
+          "uid": "35240-cb43bb6e-e9e3-43aa-a3d1-94121d6b86cb"
+        }
+      ],
+      "id": "fb785417-2da6-4c78-92d5-c43c2f5848f2",
+      "createdAt": "2026-07-28T03:10:23.000Z",
+      "updatedAt": "2026-07-28T03:10:23.000Z",
+      "uid": "35240-fb785417-2da6-4c78-92d5-c43c2f5848f2"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1"
+    }
+  ]
+}
