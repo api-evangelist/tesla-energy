@@ -37,7 +37,7 @@ tags:
   - Utility Scale
 kind: contract
 access: 3rd-Party
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 created: '2026-05-25'
 modified: '2026-05-25'
 position: Producing
