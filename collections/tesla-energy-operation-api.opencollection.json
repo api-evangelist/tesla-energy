@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tesla Fleet Energy Backup Operation API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tesla.com/oauth2/v3/authorize",
+      "accessTokenUrl": "https://auth.tesla.com/oauth2/v3/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Set Site Operation Mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/operation",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the Powerwall operation mode. `self_consumption` prioritizes using stored solar on-site; `backup` reserves battery for outages; `autonomous` lets Tesla optimize against rates and grid conditions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

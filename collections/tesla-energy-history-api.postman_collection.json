@@ -1,0 +1,262 @@
+{
+  "item": [
+    {
+      "id": "2b4c0681-9a73-4814-b69d-67e993e0f5e9",
+      "name": "History",
+      "description": {
+        "content": "Historical energy production, consumption, and battery flow",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c0735838-a7b9-4b2c-a224-0eb0d1ae1471",
+          "name": "Tesla Get Energy Site Calendar History",
+          "request": {
+            "name": "Tesla Get Energy Site Calendar History",
+            "description": {
+              "content": "Returns time-series energy data — production, consumption, grid import/export, battery charge/discharge — aggregated by day, week, month, or year. Supports kind=energy, power, self_consumption, savings, and time_of_use.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "energy_sites",
+                ":site_id",
+                "calendar_history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "kind",
+                  "value": "<string>",
+                  "description": "(Required) Type of history to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Aggregation period."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<dateTime>",
+                  "description": "ISO-8601 end of the window."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_zone",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "site_id",
+                  "description": "(Required) The energy_site_id returned by /products."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4965f8da-16c2-40d8-a179-51400a6b1a22",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "calendar_history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "kind",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "time_zone",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"serial_number\": \"string\",\n    \"period\": \"string\",\n    \"installation_time_zone\": \"string\",\n    \"time_series\": [\n      {\n        \"timestamp\": \"1977-11-18T15:12:48.341Z\",\n        \"solar_energy_exported\": 6843.8122440794605,\n        \"generator_energy_exported\": 6911.565958501788,\n        \"grid_energy_imported\": 5033.975602529061,\n        \"grid_services_energy_imported\": 1848.6366070180582,\n        \"grid_services_energy_exported\": 5354.7960274717125,\n        \"grid_energy_exported_from_solar\": 3353.7265024578833,\n        \"grid_energy_exported_from_generator\": 1008.1085244244837,\n        \"grid_energy_exported_from_battery\": 9619.270293419599,\n        \"battery_energy_exported\": 9784.925330423292,\n        \"battery_energy_imported_from_grid\": 8787.460942299926,\n        \"battery_energy_imported_from_solar\": 2363.553482035926,\n        \"battery_energy_imported_from_generator\": 4775.398053805578,\n        \"consumer_energy_imported_from_grid\": 7723.03062288636,\n        \"consumer_energy_imported_from_solar\": 9004.457458655426,\n        \"consumer_energy_imported_from_battery\": 7478.627915748629,\n        \"consumer_energy_imported_from_generator\": 8947.046093495617\n      },\n      {\n        \"timestamp\": \"2022-07-05T10:16:27.840Z\",\n        \"solar_energy_exported\": 7888.898701687435,\n        \"generator_energy_exported\": 6385.872322419659,\n        \"grid_energy_imported\": 5286.353743544178,\n        \"grid_services_energy_imported\": 7839.139370297741,\n        \"grid_services_energy_exported\": 6574.826257350437,\n        \"grid_energy_exported_from_solar\": 8249.455378880291,\n        \"grid_energy_exported_from_generator\": 604.7292142841154,\n        \"grid_energy_exported_from_battery\": 8242.788970359094,\n        \"battery_energy_exported\": 7185.526990920209,\n        \"battery_energy_imported_from_grid\": 9725.494042998705,\n        \"battery_energy_imported_from_solar\": 4085.1330517663655,\n        \"battery_energy_imported_from_generator\": 1626.6270789793102,\n        \"consumer_energy_imported_from_grid\": 6732.190204127387,\n        \"consumer_energy_imported_from_solar\": 8076.168568108044,\n        \"consumer_energy_imported_from_battery\": 6749.563319493254,\n        \"consumer_energy_imported_from_generator\": 105.28035467427644\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "132e15dc-b71a-47db-a6a5-b71ba6d4de88",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "calendar_history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "kind",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "time_zone",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8af306ed-c4e5-4eb9-93c4-bb66c5f7423e",
+    "name": "Tesla Fleet Energy Backup History API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

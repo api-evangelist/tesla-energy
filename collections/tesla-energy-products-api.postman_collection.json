@@ -1,0 +1,217 @@
+{
+  "item": [
+    {
+      "id": "6a3763f9-9527-4be5-8adc-b0a8a97da339",
+      "name": "Products",
+      "description": {
+        "content": "Discover energy_sites and other products owned by the authenticated account",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d2625c32-29b7-4f4d-b0f3-5cc8b5b93216",
+          "name": "Tesla List Products",
+          "request": {
+            "name": "Tesla List Products",
+            "description": {
+              "content": "Returns a list of products (vehicles and energy_sites) that the authenticated user has access to. Energy sites are identified by an `energy_site_id` and may include Powerwall, Solar, and Megapack assets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1eb05854-6ff5-4a67-b872-e09f3973a537",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": [\n    {\n      \"energy_site_id\": 6472,\n      \"site_name\": \"string\",\n      \"resource_type\": \"battery\",\n      \"id\": \"string\",\n      \"asset_site_id\": \"string\",\n      \"gateway_id\": \"string\",\n      \"energy_left\": 6686.091862765054,\n      \"total_pack_energy\": 6758.695113549688,\n      \"percentage_charged\": 6893.356491359569,\n      \"battery_type\": \"string\"\n    },\n    {\n      \"energy_site_id\": 166,\n      \"site_name\": \"string\",\n      \"resource_type\": \"solar\",\n      \"id\": \"string\",\n      \"asset_site_id\": \"string\",\n      \"gateway_id\": \"string\",\n      \"energy_left\": 8784.75123230103,\n      \"total_pack_energy\": 5753.5429273164855,\n      \"percentage_charged\": 6320.477640225699,\n      \"battery_type\": \"string\"\n    }\n  ],\n  \"count\": 8626\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64232953-a770-4db5-acbd-ad8061e70ca1",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6cdaaaa-fb48-4fa4-96e3-8e9a101fc5ce",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3ded0dc9-672d-44f5-98bb-e17ca4895963",
+    "name": "Tesla Fleet Energy Backup Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

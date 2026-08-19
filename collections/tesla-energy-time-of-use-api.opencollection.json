@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tesla Fleet Energy Backup Time Of Use API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tesla.com/oauth2/v3/authorize",
+      "accessTokenUrl": "https://auth.tesla.com/oauth2/v3/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time Of Use",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Set Time Of Use Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/time_of_use_settings",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the time-of-use tariff schedule for the site, including peak/off-peak windows, seasonal rates, and self-consumption optimization toggles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

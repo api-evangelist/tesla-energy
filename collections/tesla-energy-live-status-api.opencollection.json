@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tesla Fleet Energy Backup Live Status API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tesla.com/oauth2/v3/authorize",
+      "accessTokenUrl": "https://auth.tesla.com/oauth2/v3/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Live Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Get Energy Site Live Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/live_status",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ]
+          },
+          "docs": "Returns real-time power flow at the energy site — solar production, battery charge/discharge, grid import/export, and home/load consumption — plus state-of-charge, grid status, storm-mode active flag, and timestamp."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

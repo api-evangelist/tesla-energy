@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "tesla-energy",
+    "captured_at": "2026-08-17T125758",
+    "source_url": "https://tesla.com",
+    "source_type": "root-domain",
+    "file": "tesla-energy-2026-08-17T125758.png",
+    "bytes": 25941,
+    "capture": "playwright-local"
+  }
+]

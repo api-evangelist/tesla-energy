@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "1fb7026b-54fa-4d47-950c-678eacc99f0f",
+      "name": "Time Of Use",
+      "description": {
+        "content": "Tariff schedule, peak/off-peak rate plans, and TOU optimization",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3fb01309-5f77-4c9e-b85b-dd69673d4033",
+          "name": "Tesla Set Time Of Use Settings",
+          "request": {
+            "name": "Tesla Set Time Of Use Settings",
+            "description": {
+              "content": "Updates the time-of-use tariff schedule for the site, including peak/off-peak windows, seasonal rates, and self-consumption optimization toggles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "energy_sites",
+                ":site_id",
+                "time_of_use_settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "site_id",
+                  "description": "(Required) The energy_site_id returned by /products."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"<string>\",\n    \"schedule\": [\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41fa01a6-107d-4d99-b24a-fbdb871d2425",
+              "name": "Command accepted by the site.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "time_of_use_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"<string>\",\n    \"schedule\": [\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": 696,\n    \"message\": \"string\",\n    \"result\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa2a6d4b-81e1-4e0f-96d4-d79d6c85fdcc",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "time_of_use_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"<string>\",\n    \"schedule\": [\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e19eccd7-7581-420b-9d91-42aca64cb8f3",
+              "name": "Token is valid but lacks the required scope (e.g., energy_cmds for writes).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "time_of_use_settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tou_settings\": {\n    \"optimization_strategy\": \"<string>\",\n    \"schedule\": [\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      },\n      {\n        \"target\": \"<string>\",\n        \"week_days\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"start_seconds\": \"<integer>\",\n        \"end_seconds\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4c875b12-d6c5-4159-a05e-82448a0f3d48",
+    "name": "Tesla Fleet Energy Backup Time Of Use API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

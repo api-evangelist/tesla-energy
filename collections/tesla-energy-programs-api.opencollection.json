@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tesla Fleet Energy Backup Programs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tesla.com/oauth2/v3/authorize",
+      "accessTokenUrl": "https://auth.tesla.com/oauth2/v3/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Programs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Get Energy Site Programs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/programs",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              }
+            ]
+          },
+          "docs": "Returns virtual power plant and grid-services programs the site is eligible for and currently enrolled in (e.g., regional VPP, demand response)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

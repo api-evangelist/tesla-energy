@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tesla Fleet Energy Backup Products API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tesla.com/oauth2/v3/authorize",
+      "accessTokenUrl": "https://auth.tesla.com/oauth2/v3/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla List Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/products"
+          },
+          "docs": "Returns a list of products (vehicles and energy_sites) that the authenticated user has access to. Energy sites are identified by an `energy_site_id` and may include Powerwall, Solar, and Megapack assets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

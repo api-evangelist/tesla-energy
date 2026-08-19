@@ -1,0 +1,257 @@
+{
+  "item": [
+    {
+      "id": "db4bafc4-7697-4b36-9e06-6ed134572bc7",
+      "name": "Site Info",
+      "description": {
+        "content": "Static configuration of an energy site (components, address, time zone)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e76bba09-49f6-4bea-b09f-c1fed9d2f452",
+          "name": "Tesla Get Energy Site Info",
+          "request": {
+            "name": "Tesla Get Energy Site Info",
+            "description": {
+              "content": "Returns static configuration of the energy site — components installed (Powerwall, Solar, Megapack), address, time zone, version, asset registration metadata, and gateway identifiers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "energy_sites",
+                ":site_id",
+                "site_info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "site_id",
+                  "description": "(Required) The energy_site_id returned by /products."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea84dbb5-9607-4b33-8294-62ef8d9e68c5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "site_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"id\": \"string\",\n    \"site_name\": \"string\",\n    \"backup_reserve_percent\": 6859,\n    \"default_real_mode\": \"string\",\n    \"installation_date\": \"1972-06-18T04:11:32.319Z\",\n    \"installation_time_zone\": \"string\",\n    \"version\": \"string\",\n    \"battery_count\": 3109,\n    \"nameplate_power\": 7143.767065570742,\n    \"nameplate_energy\": 1104.4447703081007,\n    \"components\": {\n      \"battery\": false,\n      \"solar\": false,\n      \"solar_type\": \"string\",\n      \"grid\": true,\n      \"grid_services\": false,\n      \"storm_mode_capable\": true,\n      \"backup_time_remaining_enabled\": true,\n      \"off_grid_vehicle_charging_reserve_supported\": false\n    },\n    \"address\": {\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"zip\": \"string\",\n      \"country\": \"string\"\n    },\n    \"user_settings\": {\n      \"storm_mode_enabled\": true,\n      \"powerwall_onboarding_settings_set\": true,\n      \"sync_grid_alert_enabled\": true,\n      \"breaker_alert_enabled\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68869303-9833-4a21-81ea-53fba48319df",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "site_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "609de64e-50c2-4d6f-aa91-c836762de50a",
+              "name": "Energy site not found or not accessible by this account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "site_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "25797d54-2e47-4793-b9be-a45b9854c83f",
+    "name": "Tesla Fleet Energy Backup Site Info API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

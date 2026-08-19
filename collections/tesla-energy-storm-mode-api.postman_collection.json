@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "6c8b197b-ba3c-45c8-8bbf-8fe916f53a6c",
+      "name": "Storm Mode",
+      "description": {
+        "content": "Pre-charge Powerwall to 100% ahead of severe weather alerts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d37f3c2b-56a0-45b6-96b5-ba1ca3a2ea66",
+          "name": "Tesla Set Storm Mode",
+          "request": {
+            "name": "Tesla Set Storm Mode",
+            "description": {
+              "content": "Enables or disables Storm Mode. When enabled, Powerwall automatically pre-charges to 100% ahead of severe weather alerts in the site's region.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "energy_sites",
+                ":site_id",
+                "storm_mode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "site_id",
+                  "description": "(Required) The energy_site_id returned by /products."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d16a8afe-ddec-41f3-b862-e76447c54b9a",
+              "name": "Command accepted by the site.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "storm_mode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": 600,\n    \"message\": \"string\",\n    \"result\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23c98f8b-16de-42dc-a95b-2b865a2f322f",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "storm_mode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23d2e200-8161-4832-98f1-e941d3ac6378",
+              "name": "Token is valid but lacks the required scope (e.g., energy_cmds for writes).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "energy_sites",
+                    ":site_id",
+                    "storm_mode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "site_id",
+                      "description": "(Required) The energy_site_id returned by /products."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "energy_device_data energy_cmds offline_access"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tesla.com/oauth2/v3/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "68d28bbf-fdd3-4b56-88fa-a91e388c0ff4",
+    "name": "Tesla Fleet Energy Backup Storm Mode API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read\nPowerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —\nand write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,\ntime-of-use settings, and off-grid vehicle charging reserve.\n\nAuthentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and\nenergy_cmds (write) scopes. Third-party applications must register a partner account on the\nTesla Developer Portal and pair a virtual key with the owner's account.\n\n\nContact Support:\n Name: Tesla Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

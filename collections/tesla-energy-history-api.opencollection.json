@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tesla Fleet Energy Backup History API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tesla.com/oauth2/v3/authorize",
+      "accessTokenUrl": "https://auth.tesla.com/oauth2/v3/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tesla Get Energy Site Calendar History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://fleet-api.prd.na.vn.cloud.tesla.com/api/1/energy_sites/:site_id/calendar_history",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The energy_site_id returned by /products."
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "query",
+                "description": "Type of history to retrieve."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Aggregation period."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "ISO-8601 end of the window."
+              },
+              {
+                "name": "time_zone",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns time-series energy data — production, consumption, grid import/export, battery charge/discharge — aggregated by day, week, month, or year. Supports kind=energy, power, self_consumption, savings, and time_of_use."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
