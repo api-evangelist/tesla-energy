@@ -198,6 +198,8 @@ apis:
   humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
   baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -318,6 +320,8 @@ apis:
   humanURL: https://developer.tesla.com/docs/fleet-api/endpoints/energy
   baseURL: https://fleet-api.prd.na.vn.cloud.tesla.com/api/1
   tags:
+  - Time-Of-Use
+  tags_raw:
   - Time Of Use
   properties:
   - type: OpenAPI
