@@ -8,6 +8,18 @@ description: >-
   (self_consumption, backup, autonomous), storm mode, time-of-use settings, and off-grid vehicle charging reserve — the
   same control surface that powers the Tesla app and integrators like Autobidder, Tesla Electric (virtual power plant),
   and third-party home energy dashboards.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
