@@ -1,16 +1,7 @@
 {
   "provider": "tesla-energy",
   "sources": [
-    "tesla-energy-backup-api-openapi.yml",
-    "tesla-energy-history-api-openapi.yml",
-    "tesla-energy-live-status-api-openapi.yml",
-    "tesla-energy-off-grid-charging-api-openapi.yml",
-    "tesla-energy-operation-api-openapi.yml",
-    "tesla-energy-products-api-openapi.yml",
-    "tesla-energy-programs-api-openapi.yml",
-    "tesla-energy-site-info-api-openapi.yml",
-    "tesla-energy-storm-mode-api-openapi.yml",
-    "tesla-energy-time-of-use-api-openapi.yml"
+    "_original/tesla-energy-fleet-api-openapi.yml"
   ],
   "outputs": [
     "tesla-energy-backup-api-openapi.yml",
@@ -27,6 +18,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tesla-energy-fleet-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "tesla-energy-backup-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-history-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-live-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-off-grid-charging-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-operation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-programs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-site-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-storm-mode-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tesla-energy-time-of-use-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

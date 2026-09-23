@@ -1,22 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Tesla Fleet Energy Backup History API
-  description: 'The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read
-
-    Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
-
-    and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
-
-    time-of-use settings, and off-grid vehicle charging reserve.
-
-
-    Authentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and
-
-    energy_cmds (write) scopes. Third-party applications must register a partner account on the
-
-    Tesla Developer Portal and pair a virtual key with the owner''s account.
-
-    '
+  title: Tesla Fleet Energy History API
+  description: The energy_sites surface of the Tesla Fleet API.
   version: 1.0.0
   contact:
     name: Tesla Developer Support
@@ -92,30 +77,15 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
   schemas:
-    CalendarHistoryResponse:
-      type: object
-      properties:
-        response:
-          type: object
-          properties:
-            serial_number:
-              type: string
-            period:
-              type: string
-            installation_time_zone:
-              type: string
-            time_series:
-              type: array
-              items:
-                $ref: '#/components/schemas/CalendarHistoryBucket'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
     CalendarHistoryBucket:
       type: object
       properties:
@@ -154,6 +124,29 @@ components:
           type: number
         consumer_energy_imported_from_generator:
           type: number
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+    CalendarHistoryResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            serial_number:
+              type: string
+            period:
+              type: string
+            installation_time_zone:
+              type: string
+            time_series:
+              type: array
+              items:
+                $ref: '#/components/schemas/CalendarHistoryBucket'
   responses:
     Unauthorized:
       description: Missing or invalid bearer token.
@@ -161,14 +154,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: The energy_site_id returned by /products.
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: oauth2

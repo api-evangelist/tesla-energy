@@ -1,22 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Tesla Fleet Energy Backup API
-  description: 'The energy_sites surface of the Tesla Fleet API. Lets OAuth-authorized partners and owners read
-
-    Powerwall, Solar, and Megapack site state — site info, live status, calendar history, programs —
-
-    and write backup reserve, operation mode (self_consumption, backup, autonomous), storm mode,
-
-    time-of-use settings, and off-grid vehicle charging reserve.
-
-
-    Authentication uses Tesla Fleet API OAuth 2.0 with the energy_device_data (read) and
-
-    energy_cmds (write) scopes. Third-party applications must register a partner account on the
-
-    Tesla Developer Portal and pair a virtual key with the owner''s account.
-
-    '
+  description: The energy_sites surface of the Tesla Fleet API.
   version: 1.0.0
   contact:
     name: Tesla Developer Support
@@ -68,7 +53,22 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
     CommandResult:
       type: object
       properties:
@@ -81,16 +81,9 @@ components:
               type: string
             result:
               type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
   responses:
-    Unauthorized:
-      description: Missing or invalid bearer token.
+    Forbidden:
+      description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
       content:
         application/json:
           schema:
@@ -101,20 +94,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CommandResult'
-    Forbidden:
-      description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
+    Unauthorized:
+      description: Missing or invalid bearer token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: The energy_site_id returned by /products.
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: oauth2
