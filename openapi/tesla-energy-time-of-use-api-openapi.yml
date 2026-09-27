@@ -45,14 +45,6 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: The energy_site_id returned by /products.
-      schema:
-        type: string
   schemas:
     Error:
       type: object
@@ -125,6 +117,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: oauth2

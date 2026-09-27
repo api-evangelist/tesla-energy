@@ -44,6 +44,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
     SiteComponent:
       type: object
       properties:
@@ -63,6 +70,11 @@ components:
           type: boolean
         off_grid_vehicle_charging_reserve_supported:
           type: boolean
+    SiteInfoResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/SiteInfo'
     SiteInfo:
       type: object
       properties:
@@ -113,26 +125,6 @@ components:
               type: boolean
             breaker_alert_enabled:
               type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-    SiteInfoResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/SiteInfo'
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: The energy_site_id returned by /products.
-      schema:
-        type: string
   responses:
     NotFound:
       description: Energy site not found or not accessible by this account.
@@ -146,6 +138,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: oauth2

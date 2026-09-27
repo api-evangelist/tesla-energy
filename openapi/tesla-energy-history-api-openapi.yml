@@ -77,14 +77,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: The energy_site_id returned by /products.
-      schema:
-        type: string
   schemas:
     CalendarHistoryBucket:
       type: object
@@ -147,6 +139,14 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/CalendarHistoryBucket'
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: Missing or invalid bearer token.
