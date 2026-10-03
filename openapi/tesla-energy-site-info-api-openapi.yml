@@ -51,25 +51,6 @@ components:
           type: string
         error_description:
           type: string
-    SiteComponent:
-      type: object
-      properties:
-        battery:
-          type: boolean
-        solar:
-          type: boolean
-        solar_type:
-          type: string
-        grid:
-          type: boolean
-        grid_services:
-          type: boolean
-        storm_mode_capable:
-          type: boolean
-        backup_time_remaining_enabled:
-          type: boolean
-        off_grid_vehicle_charging_reserve_supported:
-          type: boolean
     SiteInfoResponse:
       type: object
       properties:
@@ -125,6 +106,25 @@ components:
               type: boolean
             breaker_alert_enabled:
               type: boolean
+    SiteComponent:
+      type: object
+      properties:
+        battery:
+          type: boolean
+        solar:
+          type: boolean
+        solar_type:
+          type: string
+        grid:
+          type: boolean
+        grid_services:
+          type: boolean
+        storm_mode_capable:
+          type: boolean
+        backup_time_remaining_enabled:
+          type: boolean
+        off_grid_vehicle_charging_reserve_supported:
+          type: boolean
   responses:
     NotFound:
       description: Energy site not found or not accessible by this account.

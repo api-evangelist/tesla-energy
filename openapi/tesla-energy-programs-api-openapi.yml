@@ -65,6 +65,13 @@ components:
           type: boolean
         eligibility_status:
           type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     SiteId:
       name: site_id
@@ -73,13 +80,6 @@ components:
       description: The energy_site_id returned by /products.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: oauth2

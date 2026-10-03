@@ -74,24 +74,24 @@ components:
             result:
               type: boolean
   responses:
-    CommandResult:
-      description: Command accepted by the site.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CommandResult'
-    Forbidden:
-      description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid bearer token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CommandResult:
+      description: Command accepted by the site.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommandResult'
   parameters:
     SiteId:
       name: site_id

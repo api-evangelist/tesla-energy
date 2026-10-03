@@ -86,14 +86,14 @@ components:
         battery_type:
           type: string
   responses:
-    RateLimited:
-      description: Rate limit exceeded.
+    Unauthorized:
+      description: Missing or invalid bearer token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid bearer token.
+    RateLimited:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:
