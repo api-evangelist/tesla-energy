@@ -56,13 +56,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
     CommandResult:
       type: object
       properties:
@@ -75,13 +68,14 @@ components:
               type: string
             result:
               type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
   responses:
-    Unauthorized:
-      description: Missing or invalid bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Forbidden:
       description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
       content:
@@ -94,6 +88,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CommandResult'
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     SiteId:
       name: site_id

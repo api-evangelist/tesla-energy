@@ -42,22 +42,6 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-    ProductsResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-        count:
-          type: integer
     Product:
       type: object
       properties:
@@ -85,15 +69,31 @@ components:
           type: number
         battery_type:
           type: string
+    ProductsResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        count:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
   responses:
-    Unauthorized:
-      description: Missing or invalid bearer token.
+    RateLimited:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded.
+    Unauthorized:
+      description: Missing or invalid bearer token.
       content:
         application/json:
           schema:
