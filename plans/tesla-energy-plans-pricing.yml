@@ -1,3 +1,8 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (dated 2026-05-25 by the file itself), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
+generated: '2026-05-25'
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
@@ -124,3 +129,54 @@ plans:
         price: 'Quote'
         userMultiplied: false
         description: Retrofit solar panel pricing varies by system size. Quoted per project.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - one-time
+  units:
+  - credit
+  - request
+  plans:
+  - name: Fleet API — Free Tier
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - day
+  - name: Fleet API — Paid Tier
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Powerwall (Hardware)
+    access: other
+    model: one-time
+    model_how: stated
+    units:
+    - credit
+    periods:
+    - one-time
+  - name: Megapack (Hardware)
+    access: other
+    model: one-time
+    model_how: stated
+    units:
+    - credit
+    periods:
+    - one-time
+  - name: Solar Roof and Solar Panels (Hardware)
+    access: other
+    model: one-time
+    model_how: stated
+    units:
+    - other
+    periods:
+    - one-time
