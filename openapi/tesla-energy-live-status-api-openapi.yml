@@ -44,18 +44,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-    LiveStatusResponse:
-      type: object
-      properties:
-        response:
-          $ref: '#/components/schemas/LiveStatus'
     LiveStatus:
       type: object
       properties:
@@ -93,6 +81,26 @@ components:
         timestamp:
           type: string
           format: date-time
+    LiveStatusResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/LiveStatus'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
   responses:
     NotFound:
       description: Energy site not found or not accessible by this account.
@@ -106,14 +114,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: The energy_site_id returned by /products.
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: oauth2

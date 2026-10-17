@@ -45,6 +45,14 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: The energy_site_id returned by /products.
+      schema:
+        type: string
   schemas:
     CommandResult:
       type: object
@@ -58,13 +66,6 @@ components:
               type: string
             result:
               type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
     TimeOfUseSettings:
       type: object
       properties:
@@ -98,7 +99,20 @@ components:
                     type: integer
                   end_seconds:
                     type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
   responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Forbidden:
       description: Token is valid but lacks the required scope (e.g., energy_cmds for writes).
       content:
@@ -111,20 +125,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CommandResult'
-    Unauthorized:
-      description: Missing or invalid bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: The energy_site_id returned by /products.
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       type: oauth2

@@ -42,13 +42,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
     Program:
       type: object
       properties:
@@ -65,6 +58,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Program'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
   parameters:
     SiteId:
       name: site_id
